@@ -6,8 +6,8 @@
 #else
 #include <SDL/SDL.h>
 #ifdef __APPLE__
-#include <SDL_image/SDL_image.h>
-#include <SDL_mixer/SDL_mixer.h>
+#include <SDL_image.h>
+#include <SDL_mixer.h>
 #else
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_mixer.h>
@@ -62,9 +62,9 @@ int main(int argc, char **argv)
 	atexit(SDL_Quit);
 	//screen=SDL_SetVideoMode(480,272,16,SDL_HWSURFACE|SDL_DOUBLEBUF);
 	//screen=SDL_SetVideoMode(640,384 /*480*/,32,SDL_HWSURFACE|SDL_DOUBLEBUF|SDL_FULLSCREEN);
-	screen=SDL_SetVideoMode(1920,1080 /*480*/,32,SDL_HWSURFACE|SDL_DOUBLEBUF /* |SDL_FULLSCREEN */ );
+	screen=SDL_SetVideoMode(480,320 /*480*/,32,SDL_HWSURFACE|SDL_DOUBLEBUF /* |SDL_FULLSCREEN */ );
 	if(!screen) exit(2);
-	SDL_WM_SetCaption( "Ninja Shopping Madness", NULL );
+	SDL_WM_SetCaption( "Trump Jump", NULL );
     srand(time(NULL));
     
 	SDL_Joystick *joy=0;
@@ -86,44 +86,20 @@ int main(int argc, char **argv)
 	Hud hud;
 	Map map;
 	map.load("data/level.txt");
-    Sprite rainbow("data/Rainbow.png",64,64);
-	Sprite white("data/White.png",64,64);
-    Sprite black("data/Black.png",64,64);
-    Sprite brown("data/Brown.png",64,64);
-    Sprite goat("data/Goat.png",64,128);
-	Sprite target("data/girl.png",64,64);
-    Image bros("art/Bros.png");
-    Image cart("art/Cart.png");
-    Image lego("art/Lego.png");
-    Image orca("art/Orca.png");
-    Image pik("art/Pik.png");
-    Image smash("art/Smash.png");
-    Image tri("art/Tri.png");
+    Sprite trump("data/Trump.png",32,32);
+    Image baby("art/Baby.png");
+    Image money("art/Money.png");
+    Image meatloaf("art/Meatloaf.png");
+    Image sign("art/Sign.png");
 	Mix_PlayMusic(song,-1);
-    printf("Adding Rainbow Bunny: ");
-    game.addCharSprite(&rainbow);
-    printf("Adding White Bunny: ");
-    game.addCharSprite(&white);
-    printf("Adding Black Bunny: ");
-    game.addCharSprite(&black);
-    printf("Adding Brown Bunny: ");
-    game.addCharSprite(&brown);
-    printf("Adding Goat on a Pole: ");
-    game.addCharSprite(&goat);
-    printf("Adding Super Mario Bros: ");
-    game.addItemImage(&bros);
-    printf("Adding Mario Cart: ");
-    game.addItemImage(&cart);
-    printf("Adding Lego: ");
-    game.addItemImage(&lego);
-    printf("Adding Orca: ");
-    game.addItemImage(&orca);
-    printf("Adding Pik: ");
-    game.addItemImage(&pik);
-    printf("Adding Super Smash Bros: ");
-    game.addItemImage(&smash);
-    printf("Adding Tri: ");
-    game.addItemImage(&tri);
+    printf("Adding Trump: ");
+    game.addCharSprite(&trump);
+    printf("Adding Baby: ");
+    game.addItemImage(&baby);
+    printf("Adding Money: ");
+    game.addItemImage(&money);
+    printf("Adding Sign: ");
+    game.addItemImage(&sign);
 	game.newGame(map);
 	printf("New game\n");
 	//main while loop
@@ -147,13 +123,13 @@ int main(int argc, char **argv)
 			case SDL_MOUSEBUTTONDOWN:
 				if(gameMode==MODE_WINNER) break;
 				if(event.button.x<screen->w/4) {
-                    rainbow.moveLeft(resetTimer==0);
+                    trump.moveLeft(resetTimer==0);
                     hud.leftActive=resetTimer==0;
 				} else if(event.button.x>screen->w*3/4) {
-                    rainbow.moveRight(resetTimer==0);
+                    trump.moveRight(resetTimer==0);
                     hud.rightActive=resetTimer==0;
 				} else if(event.button.y>screen->h*3/4) {
-                    rainbow.jump(resetTimer==0);
+                    trump.jump(resetTimer==0);
                     hud.jumpActive=resetTimer==0;
                 }
 				break;
@@ -165,13 +141,13 @@ int main(int argc, char **argv)
                     game.newGame(map);
                 }
 				if(event.button.x<screen->w/4) {
-                    rainbow.moveLeft(false);
+                    trump.moveLeft(false);
                     hud.leftActive=false;
 				} else if(event.button.x>screen->w*3/4) {
-                    rainbow.moveRight(false);
+                    trump.moveRight(false);
                     hud.rightActive=false;
 				} else if(event.button.y>screen->h*3/4) {
-                    rainbow.jump(false);
+                    trump.jump(false);
                     hud.jumpActive=false;
                 }
 				break;
@@ -180,36 +156,36 @@ int main(int argc, char **argv)
 				case 3: 
                     switch(event.jbutton.which) {
                     case 0:   
-                        white.moveLeft(resetTimer==0);
+                        trump.moveLeft(resetTimer==0);
                         break;
                     case 1:
-                        brown.moveLeft(resetTimer==0);
+                        trump.moveLeft(resetTimer==0);
                         break;
                     }
                     break;
 				case 1:
                     switch(event.jbutton.which) {
                     case 0:   
-                        white.moveRight(resetTimer==0);
+                        trump.moveRight(resetTimer==0);
                         break;
                     case 1:
-                        brown.moveRight(resetTimer==0);
+                        trump.moveRight(resetTimer==0);
                         break;
                     }
                     break;
 				case 2:
                     switch(event.jbutton.which) {
                     case 0:   
-                        white.jump(resetTimer==0);
+                        trump.jump(resetTimer==0);
                         break;
                     case 1:
-                        brown.jump(resetTimer==0);
+                    	trump.jump(resetTimer==0);
                         break;
                     }
                     break;
-                case 15: brown.moveLeft(resetTimer==0); printf("15"); break;
-                case 13: brown.moveRight(resetTimer==0); printf("13"); break;
-                case 14: brown.jump(resetTimer==0); printf("14"); break;
+                case 15: trump.moveLeft(resetTimer==0); printf("15"); break;
+                case 13: trump.moveRight(resetTimer==0); printf("13"); break;
+                case 14: trump.jump(resetTimer==0); printf("14"); break;
 				}
 				 break;
 			case SDL_JOYBUTTONUP:
@@ -220,69 +196,58 @@ int main(int argc, char **argv)
 				case 3:
                     switch(event.jbutton.which) {
                     case 0:   
-                        white.moveLeft(false);
+                        trump.moveLeft(false);
                         break;
                     case 1:
-                        brown.moveLeft(false);
+                        trump.moveLeft(false);
                         break;
                     }
                    break;
 				case 1:
                     switch(event.jbutton.which) {
                     case 0:   
-                        white.moveRight(false);
+                        trump.moveRight(false);
                         break;
                     case 1:
-                        brown.moveRight(false);
+                        trump.moveRight(false);
                         break;
                     }
                     break;
 				case 2:
                     switch(event.jbutton.which) {
                     case 0:   
-                        white.jump(false);
+                        trump.jump(false);
                         break;
                     case 1:
-                        brown.jump(false);
+                        trump.jump(false);
                         break;
                     }
                     break;
-                case 15: brown.moveLeft(false); printf("15"); break;
-                case 13: brown.moveRight(false); printf("13"); break;
-                case 14: brown.jump(false); printf("14"); break;
+                case 15: trump.moveLeft(false); printf("15"); break;
+                case 13: trump.moveRight(false); printf("13"); break;
+                case 14: trump.jump(false); printf("14"); break;
 				}
 				break;
 
 			case SDL_KEYDOWN:
 				switch(event.key.keysym.sym) {
-				case SDLK_LEFT: rainbow.moveLeft(resetTimer==0); break;
-				case SDLK_RIGHT: rainbow.moveRight(resetTimer==0); break;
-				case SDLK_UP: rainbow.jump(resetTimer==0); break;
-				case 'a': black.moveLeft(resetTimer==0); break;
-				case 'd': black.moveRight(resetTimer==0); break;
-				case 'w': black.jump(resetTimer==0); break;
-                case 'j': white.moveLeft(resetTimer==0); break;
-                case 'l': white.moveRight(resetTimer==0); break;
-                case 'i': white.jump(resetTimer==0); break;
-                case SDLK_KP4: brown.moveLeft(resetTimer==0); break;
-                case SDLK_KP6: brown.moveRight(resetTimer==0); break;
-                case SDLK_KP8: brown.jump(resetTimer==0); break;
+				case SDLK_LEFT: trump.moveLeft(resetTimer==0); break;
+				case SDLK_RIGHT: trump.moveRight(resetTimer==0); break;
+				case SDLK_UP: trump.jump(resetTimer==0); break;
+				case 'a': trump.moveLeft(resetTimer==0); break;
+				case 'd': trump.moveRight(resetTimer==0); break;
+				case 'w': trump.jump(resetTimer==0); break;
+				default: break;
 				}
 				break;
 			case SDL_KEYUP:
 				switch(event.key.keysym.sym) {
-				case SDLK_LEFT: rainbow.moveLeft(false); break;
-				case SDLK_RIGHT: rainbow.moveRight(false); break;
-				case SDLK_UP: rainbow.jump(false); break;
-				case 'a': black.moveLeft(false); break;
-				case 'd': black.moveRight(false); break;
-				case 'w': black.jump(false); break;
-                case 'j': white.moveLeft(false); break;
-                case 'l': white.moveRight(false); break;
-                case 'i': white.jump(false); break;
-                case SDLK_KP4: brown.moveLeft(false); break;
-                case SDLK_KP6: brown.moveRight(false); break;
-                case SDLK_KP8: brown.jump(false); break;
+				case SDLK_LEFT: trump.moveLeft(false); break;
+				case SDLK_RIGHT: trump.moveRight(false); break;
+				case SDLK_UP: trump.jump(false); break;
+				case 'a': trump.moveLeft(false); break;
+				case 'd': trump.moveRight(false); break;
+				case 'w': trump.jump(false); break;
 
 				case SDLK_RETURN: game.newGame(map); break;
 				case SDLK_ESCAPE:
@@ -294,6 +259,8 @@ int main(int argc, char **argv)
 						game.newGame(map);
 						gameMode=MODE_TITLE;
 					}
+					break;
+				default:
 					break;
 				}
 				if(gameMode==MODE_TITLE) gameMode=MODE_MENU;
@@ -314,14 +281,6 @@ int main(int argc, char **argv)
         	game.update(map,hud);
         	elapsed-=16;
         }
-//        if(gameMode==MODE_GAME && resetTimer==0) {
-//    		black.ai(&map,&target);
-//        }
-    
-//    	if(gameMode==MODE_GAME && resetTimer==0) {
-//    		black.ai(&map,&target);
-//        }
-
 //		printf("Entry + 1 Beer\n");
 		game.draw(map,hud);
 //        test.draw(250, 250);
