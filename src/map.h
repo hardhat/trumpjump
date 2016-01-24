@@ -24,11 +24,9 @@ protected:
 #ifdef _PSP
 	OSL_IMAGE *backgroundImage;
 	OSL_IMAGE *levelImage;
-	OSL_IMAGE *collisionImage;
 #else
 	SDL_Surface *backgroundImage;
 	SDL_Surface *levelImage;
-	SDL_Surface *collisionImage;
 #endif
 	int cellw,cellh;
 	int tilesAcross,tilesDown;

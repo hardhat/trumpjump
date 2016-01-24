@@ -10,14 +10,8 @@ struct Screen { int w,h; } scr={480,272};
 struct Screen *screen;
 #endif
 
-#define T_SKY 4
-#define T_LADDER 2
+#define T_SKY 1
 #define T_GROUND 0
-#define T_GROUNDLADDER 6
-#define T_CEILING 3
-#define T_LADDERTOP 7
-#define T_ROCK 1
-#define T_CLIFF 8
 
 class TileCollide {
 public:
@@ -27,13 +21,7 @@ public:
 	bool obstacle;
 } tileCollide[]={
 	{ T_SKY, false, false, false },
-	{ T_LADDER, false, true, false },
-	{ T_LADDERTOP, true, true, false },
-	{ T_GROUNDLADDER, true, true, false },
 	{ T_GROUND, true, false, false },
-	{ T_ROCK, true, false, true },
-	{ T_CEILING, true, false, true },
-	{ T_CLIFF, true, false, false },
 	{ -1, false, false}
 };
 
@@ -44,13 +32,12 @@ Map::Map()
 	viewy=0;
 	backgroundImage=0;
 	levelImage=0;
-	collisionImage=0;
 	tilesAcross=30;
 	tilesDown=15;
 	cell=new int[tilesAcross*tilesDown];
 	gradient=new int[tilesAcross*tilesDown];
-	cellw=64;
-	cellh=64;
+	cellw=32;
+	cellh=32;
 	viewTimer=1000;
 #ifdef _PSP
 	screen=&scr;
@@ -64,11 +51,9 @@ Map::~Map()
 #ifdef _PSP
 	if(backgroundImage) oslDeleteImage( backgroundImage);
 	if(levelImage) oslDeleteImage( levelImage);
-	if(collisionImage) oslDeleteImage( collisionImage);
 #else
 	if(backgroundImage) SDL_FreeSurface( backgroundImage);
 	if(levelImage) SDL_FreeSurface( levelImage);
-	if(collisionImage) SDL_FreeSurface( collisionImage);
 #endif
 	delete []cell;
 	cell=0;
@@ -81,13 +66,12 @@ void Map::load(const char *level)
 	this->level=level;
 #ifdef _PSP
 	backgroundImage=oslLoadImageFile((char *)"data/sky1.png",OSL_IN_RAM,OSL_PF_8888);
-	levelImage=oslLoadImageFile((char *)"data/random_0.png",OSL_IN_RAM,OSL_PF_8888);
-	collisionImage=oslLoadImageFile((char *)"data/collision.png",OSL_IN_RAM,OSL_PF_8888);
+	levelImage=oslLoadImageFile((char *)"data/platform.png",OSL_IN_RAM,OSL_PF_8888);
 #else
 	printf("Loading..\n");
 	backgroundImage=IMG_Load("data/background.png");
-	levelImage=IMG_Load("data/random_0.png");
-	collisionImage=IMG_Load("data/collision.png");
+	levelImage=IMG_Load("data/platform.png");
+	printf("Image was %dx%d\n",levelImage->w,levelImage->h);
 #endif
 	int i,j;
 	for(j=0;j<tilesDown;j++) {
@@ -107,13 +91,7 @@ void Map::load(const char *level)
 			int pos=i+j*tilesAcross;
 			switch(line[i]) {
 			case ' ': cell[pos]=T_SKY; break;
-			case 'L': cell[pos]=T_LADDER; break;
-			case 'F': cell[pos]=T_LADDERTOP; break;
-			case 'B': cell[pos]=T_GROUNDLADDER; break;
-			case '.': cell[pos]=T_GROUND; break;
-			case 'R': cell[pos]=T_ROCK; break;
-			case '_': cell[pos]=T_CEILING; break;
-			case '#': cell[pos]=T_CLIFF; break;
+			default: cell[pos]=T_GROUND; break;
 			}
 		}
 	}
@@ -174,8 +152,10 @@ void Map::drawTile(int tile, int x, int y)
 	levelImage->y=dy;	// draw it where it goes
 	oslDrawImage(levelImage);
 #else
-	SDL_Rect src={static_cast<Sint16>(left),static_cast<Sint16>(top),static_cast<Uint16>(cellw),static_cast<Uint16>(cellh)},dest={static_cast<Sint16>(dx),static_cast<Sint16>(dy),static_cast<Uint16>(cellw),static_cast<Uint16>(cellh)};
-	SDL_BlitSurface( levelImage, &src, screen, &dest);
+	SDL_Rect src={(left),(top),(cellw),(cellh)},
+	dest={(dx),(dy),0,0};
+	//printf("src=%dx%d+%d+%d\n",src.w,src.h,src.x,src.y);
+	SDL_BlitSurface( levelImage, NULL, screen, &dest);
 #endif
 }
 
@@ -309,7 +289,7 @@ void Map::setGradient(int cx,int cy,int id)
             list.push_back(new SearchGrad(cx+off[i][0],cy+off[i][1],id+1));
         }
     }
-    printf("count: %d steps...(queue size=%d)\n",count,list.size());
+    printf("count: %d steps...(queue size=%d)\n",count,(int)list.size());
     int j;
     for(j=0;j<tilesDown;j++) {
         for(i=0;i<tilesAcross;i++) {
