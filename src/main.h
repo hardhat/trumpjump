@@ -1,14 +1,7 @@
 #ifndef MAIN_H
 #define MAIN_H
+#include <SDL.h>
 
-enum SfxType {
-	S_START,
-	S_JUMP,
-	S_MATCH,
-	MAXSFX
-};
-extern enum GameMode { MODE_TITLE, MODE_MENU, MODE_GAME, MODE_WINNER } gameMode;
-
-void playSound( SfxType id);
+extern SDL_Render *renderer;
 
 #endif
