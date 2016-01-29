@@ -29,10 +29,12 @@ void Map::update(int elapsed)
 int Map::collide(int x,int y,int w,int h)
 {
 
+    return MAP_SKY;
 }
 
 int Map::collect(int x,int y,int w,int h)
 {
 
+    return 0;
 }
 
