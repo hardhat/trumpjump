@@ -14,6 +14,9 @@ enum PowerUp {
 class Actor
 {
 public:
+	Actor();
+	~Actor();
+	void init();
 	void handle(bool down);
 	void draw(SDL_Renderer *renderer);
 	void update(int elapsed);

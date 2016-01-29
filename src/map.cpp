@@ -16,7 +16,7 @@ void Map::init()
 
 }
 
-void Map::resetGame()
+void Map::newGame()
 {
 
 }

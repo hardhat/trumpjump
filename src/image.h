@@ -8,7 +8,7 @@ public:
 	Image(const char *path);
 	~Image();
 	/// call once per program run
-	static init();
+	static void init();
 	/// draw at the global scale
 	void draw(SDL_Renderer *renderer,int x,int y);
 	/// draw stretched to the requested size in pixel coordinates

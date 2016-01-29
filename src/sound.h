@@ -10,6 +10,7 @@ enum SoundEffects {
 
 class Sound
 {
+public:
 	Sound();
 	~Sound();
 	static void init();
@@ -17,3 +18,4 @@ class Sound
 	static void playSfx(int id);
 };
 
+#endif

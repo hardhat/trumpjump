@@ -2,6 +2,7 @@
 #define MAP_H
 
 #include <SDL.h>
+#include "image.h"
 
 enum MapItems {
 	MAP_SKY,
