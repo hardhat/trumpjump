@@ -1,3 +1,7 @@
+#include <SDL.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include "main.h"
 #include "game.h"
 #include "font.h"
@@ -38,6 +42,8 @@ int main(int argc,char **argv)
 
 	// Init font loader
 	Font::init();
+
+	srand(time(NULL));
 
 	// TODO calculatre this with acutal time in ms.
 	int elapsed=16;
