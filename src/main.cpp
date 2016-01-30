@@ -11,8 +11,6 @@
 
 Game game;
 
-SDL_Point screensize={640,384};
-
 extern "C" {
 int main(int argc,char **argv);
 }
@@ -23,8 +21,7 @@ int main(int argc,char **argv)
 	// init window and renderer
 	// TODO: query the screen and set the resolution based on the screen size.
 	SDL_Window *window=SDL_CreateWindow("Super Trump Jump",SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,640,384,0);
-	screensize.x=640;
-	screensize.y=384;
+	World::setWidthHeight(640,384);
 	SDL_Renderer *renderer=SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED);
     World::setRenderer(renderer);
 

@@ -3,6 +3,8 @@
 float World::scale;
 float World::top;
 float World::left;
+float World::width;
+float World::height;
 SDL_Renderer *World::renderer;
 
 World::World()
@@ -30,7 +32,7 @@ void World::screenToWorld(int sx,int sy,float &wx,float &wy)
     wx=sx;
     wy=sy;
     if(scale!=0) {
-        wx=sx;
-        wy=sy;
+        wx=sx/scale+left;
+        wy=sy/scale+top;
     }
 }

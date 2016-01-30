@@ -36,7 +36,7 @@ void Sound::playSong(int id)
 	int repeatTimes=-1;
 
 	// Loop the selected sound
-	if(id<0 || id>=(sizeof(songName)/sizeof(const char *))) {
+	if(id<0 || (unsigned)id>=(sizeof(songName)/sizeof(const char *))) {
 		printf("Requested id %d not a song.\n",id);
 		return;
 	}
