@@ -1,7 +1,7 @@
 #include <SDL.h>
+#include <stdio.h>
 #include <SDL_mixer.h>
 #include <map>
-
 #include "sound.h"
 
 static std::map <int,Mix_Music *> songMap;
@@ -59,7 +59,7 @@ void Sound::playSong(int id)
                 activeMusic=s;
         }
 
-} 
+}
 
 const char *sfxName[]={
 	"data/jump.wav",

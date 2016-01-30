@@ -1,7 +1,7 @@
 [Project]
 FileName=trumpjump.dev
 Name=trumpjump
-UnitCount=14
+UnitCount=10
 PchHead=-1
 PchSource=-1
 Ver=3
@@ -11,26 +11,6 @@ ProfileIndex=0
 Folders=
 
 [Unit1]
-FileName=src\falling.cpp
-CompileCpp=1
-Folder=trumpjump
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit2]
-FileName=src\falling.h
-CompileCpp=1
-Folder=trumpjump
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit3]
 FileName=src\game.cpp
 CompileCpp=1
 Folder=trumpjump
@@ -40,7 +20,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit4]
+[Unit2]
 FileName=src\game.h
 CompileCpp=1
 Folder=trumpjump
@@ -50,7 +30,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit5]
+[Unit3]
 FileName=src\hud.cpp
 CompileCpp=1
 Folder=trumpjump
@@ -60,7 +40,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit6]
+[Unit4]
 FileName=src\hud.h
 CompileCpp=1
 Folder=trumpjump
@@ -70,7 +50,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit7]
+[Unit5]
 FileName=src\image.cpp
 CompileCpp=1
 Folder=trumpjump
@@ -80,7 +60,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit8]
+[Unit6]
 FileName=src\image.h
 CompileCpp=1
 Folder=trumpjump
@@ -90,7 +70,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit9]
+[Unit7]
 FileName=src\main.cpp
 CompileCpp=1
 Folder=trumpjump
@@ -100,8 +80,28 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit10]
+[Unit8]
 FileName=src\main.h
+CompileCpp=1
+Folder=trumpjump
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit9]
+FileName=src\map.cpp
+CompileCpp=1
+Folder=trumpjump
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit10]
+FileName=src\map.h
 CompileCpp=1
 Folder=trumpjump
 Compile=1
@@ -168,7 +168,7 @@ ProductName=
 ProductVersion=
 AutoIncBuildNrOnRebuild=0
 AutoIncBuildNrOnCompile=0
-UnitCount=14
+UnitCount=10
 
 [Profile1]
 ProfileName=MingW
@@ -178,8 +178,8 @@ Includes=
 Libs=
 ResourceIncludes=
 MakeIncludes=
-Compiler=-I"<INCLUDE>\SDL" -Dmain=SDL_main_@@_
-CppCompiler=-I"<INCLUDE>" -Dmain=SDL_main_@@_
+Compiler=-I"<INCLUDE>\SDL2" -Dmain=SDL_main_@@_
+CppCompiler=-I"<INCLUDE>\SDL2" -Dmain=SDL_main_@@_
 Linker=-L"<LIB>" -lmingw32 -lSDLmain -lSDL -liberty -lSDL_mixer -lSDL_ttf -lSDL_image_@@_
 PreprocDefines=
 CompilerSettings=0000000000000001000000

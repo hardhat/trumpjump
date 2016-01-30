@@ -2,7 +2,6 @@
 #include <SDL_image.h>
 #include <stdio.h>
 #include <string>
-
 #include "image.h"
 
 Image::Image(SDL_Renderer *renderer,const char *path)
