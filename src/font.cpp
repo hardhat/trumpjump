@@ -23,9 +23,9 @@ void Font::init()
 	TTF_Init();
 	// Load up all of the fonts we will use.
     // TODO: scale up to the global scale.
-    fontFace[FF_HEADLINE]=TTF_OpenFont("data/headline.ttf",36);
-    fontFace[FF_BODY]=TTF_OpenFont("data/body.ttf",18);
-    fontFace[FF_SMALL]=TTF_OpenFont("data/small.ttf",14);
+    fontFace[FF_HEADLINE]=TTF_OpenFont("data/vera.ttf",36);
+    fontFace[FF_BODY]=TTF_OpenFont("data/vera.ttf",18);
+    fontFace[FF_SMALL]=TTF_OpenFont("data/vera.ttf",14);
 
 }
 

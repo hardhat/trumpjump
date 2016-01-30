@@ -4,6 +4,7 @@
 enum SoundEffects {
 	SFX_JUMP,
 	SFX_START,
+	SFX_MATCH,
 
 	SFX_MAX
 };

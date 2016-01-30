@@ -4,6 +4,7 @@
 #include "map.h"
 #include "hud.h"
 #include "sound.h"
+#include "font.h"
 
 Game::Game()
 {
@@ -44,6 +45,8 @@ void Game::resetGame()
         map=new Map();
         map->init();
     }
+    Sound::playSong(0);
+    Sound::playSfx(SFX_START);
 }
 
 /// key press
@@ -52,7 +55,7 @@ void Game::handleKey(int key,bool down)
     if(mode==MODE_MENU) {
         mode=MODE_PLAY;
     } else {
-        Sound::playSfx(SFX_JUMP);
+        if(down) Sound::playSfx(SFX_JUMP);
     }
 }
 
@@ -62,7 +65,7 @@ void Game::handleButton(int x,int y,bool down)
     if(mode==MODE_MENU) {
         mode=MODE_PLAY;
     } else {
-        Sound::playSfx(SFX_JUMP);
+        if(down) Sound::playSfx(SFX_JUMP);
     }
 }
 
@@ -87,6 +90,8 @@ void Game::draw(SDL_Renderer *renderer)
     map->draw(renderer);
     hero->draw(renderer);
     hud->draw(renderer);
+    Font::draw(renderer, FF_HEADLINE, "Super Trump Jump",0,0);
+    Font::draw(renderer, FF_BODY, "Score 0    Money 0    Voter confidence: **OOO",0,38);
     SDL_RenderPresent(renderer);
 }
 
