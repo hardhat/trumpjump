@@ -27,6 +27,9 @@ void Game::init(SDL_Renderer *renderer)
 {
 	/// load all of the images, and so forth.  Run once.
     if(!title) title=new Image(renderer,"title.png");
+
+    // Prepare into first initial state.
+    resetGame();
 }
 
 /// start a new round.
