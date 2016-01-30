@@ -87,7 +87,7 @@ int main(int argc,char **argv)
 		game.draw(renderer);
 
         unsigned int now=SDL_GetTicks();
-        int elapsed=now-old;
+        elapsed=now-old;
         if(elapsed>1000) elapsed=16;
 		if(elapsed>0) game.update(elapsed);
 

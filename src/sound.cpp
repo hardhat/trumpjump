@@ -71,7 +71,7 @@ const char *sfxName[]={
 void Sound::playSfx(int id)
 {
 	// Play once the selected sound effect.
-	if(id<0 || id>=(sizeof(sfxName)/sizeof(const char *))) {
+	if(id<0 || (unsigned)id>=(sizeof(sfxName)/sizeof(const char *))) {
 		printf("Requested id %d not a sound effect.\n",id);
 		return;
 	}
