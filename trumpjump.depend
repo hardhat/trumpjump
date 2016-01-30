@@ -424,3 +424,98 @@
 1454188364 source:/home/dalew/cc/trumpjump/src/world.cpp
 	"world.h"
 
+1454188948 source:/home/niuzeta/works/cpp/trumpjump/src/actor.cpp
+	<SDL.h>
+	"world.h"
+	"actor.h"
+
+1454188948 /home/niuzeta/works/cpp/trumpjump/src/world.h
+	<SDL.h>
+
+1454109112 /home/niuzeta/works/cpp/trumpjump/src/actor.h
+	<SDL.h>
+	"image.h"
+
+1454168689 /home/niuzeta/works/cpp/trumpjump/src/image.h
+	<SDL.h>
+
+1454188948 source:/home/niuzeta/works/cpp/trumpjump/src/font.cpp
+	<SDL.h>
+	<SDL_ttf.h>
+	<stdio.h>
+	"font.h"
+
+1454168689 /home/niuzeta/works/cpp/trumpjump/src/font.h
+	<SDL.h>
+
+1454188948 source:/home/niuzeta/works/cpp/trumpjump/src/game.cpp
+	<SDL.h>
+	"game.h"
+	"actor.h"
+	"world.h"
+	"map.h"
+	"hud.h"
+	"sound.h"
+	"font.h"
+
+1454168689 /home/niuzeta/works/cpp/trumpjump/src/game.h
+	<SDL.h>
+	"image.h"
+
+1454189750 /home/niuzeta/works/cpp/trumpjump/src/map.h
+	<SDL.h>
+	<vector>
+	"image.h"
+
+1454109112 /home/niuzeta/works/cpp/trumpjump/src/hud.h
+	<SDL.h>
+
+1454175848 /home/niuzeta/works/cpp/trumpjump/src/sound.h
+
+1454188948 source:/home/niuzeta/works/cpp/trumpjump/src/hud.cpp
+	<SDL.h>
+	"image.h"
+	"font.h"
+	"hud.h"
+
+1454188948 source:/home/niuzeta/works/cpp/trumpjump/src/image.cpp
+	<SDL.h>
+	<SDL_image.h>
+	<stdio.h>
+	<string>
+	"image.h"
+
+1454190248 source:/home/niuzeta/works/cpp/trumpjump/src/main.cpp
+	<SDL.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	"main.h"
+	"game.h"
+	"font.h"
+	"sound.h"
+	"image.h"
+	"world.h"
+
+1454109112 /home/niuzeta/works/cpp/trumpjump/src/main.h
+	<SDL.h>
+
+1454190533 source:/home/niuzeta/works/cpp/trumpjump/src/map.cpp
+	<SDL.h>
+	<stdio.h>
+	"map.h"
+	"image.h"
+	"world.h"
+	<iostream>
+	<vector>
+
+1454188948 source:/home/niuzeta/works/cpp/trumpjump/src/sound.cpp
+	<SDL.h>
+	<stdio.h>
+	<SDL_mixer.h>
+	<map>
+	"sound.h"
+
+1454188948 source:/home/niuzeta/works/cpp/trumpjump/src/world.cpp
+	"world.h"
+
