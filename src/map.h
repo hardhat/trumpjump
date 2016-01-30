@@ -2,9 +2,10 @@
 #define MAP_H
 
 #include <SDL.h>
+#include <vector>
 #include "image.h"
 
-enum MapItems {
+enum MapItem {
     MAP_SKY = 0,
     MAP_BARRIER,
     MAP_REDSTAR,
@@ -14,6 +15,13 @@ enum MapItems {
     MAP_MEATLOAF,
     MAP_SIGN,
     MAP_MONEY,
+};
+
+struct GameObject {
+    MapItem Type;
+    float   x;
+    float   y;
+    GameObject(MapItem t, float x, float y) : Type(t), x(x), y(y) {}
 };
 
 class Map
@@ -38,9 +46,6 @@ class Map
         // Load assets
         void loadImages();
 
-        // apply gravity
-        void updateGravity();
-
         // Generate map
         void generateObjects();
 
@@ -53,18 +58,13 @@ class Map
         // TODO Accept with global object
         int worldW;
         int worldH;
-        MapItems **map;
+        MapItem **map;
+
+        std::vector<GameObject> objects;
 
         int left;	// in screen pixels, for the map scrollng
         // TODO Use this signiture for sprite map, not individual instances
         // Image *itemsImage;
-
-        // position
-        float px, py;
-        // velocity
-        float vx, vy; // vx is move-to-right; always constant.
-        // accelleration;
-        float ax, ay; 
 
         // Maybe use a lookup table that matches with enum value?
         Image *potatoImage;

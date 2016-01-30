@@ -4,9 +4,11 @@
 #include "image.h"
 #include "world.h"
 #include <iostream>
+#include <vector>
 
 Map::Map()
 {
+    // TODO set this to be configurable
     // TODO Encapsulate screensize into a singleton / config so we stretch later
     // From global: screensize={640,384};
     w = 640;
@@ -50,7 +52,29 @@ void Map::newGame()
 void Map::draw(SDL_Renderer *renderer)
 {
     Image *toDraw;
-    // TODO: iterate through game objects
+    GameObject *obj;
+    int screenX, screenY;
+    
+    // TODO: change into iterator like:
+    // for (std::vector<GameObject> it = objects.begin(); it != objects.end(); it++)
+    for (int i = 0; i < objects.size(); i++) {
+        obj = &objects[i];
+        if (obj->Type == MAP_BARRIER) {
+            toDraw = platformImage;
+        }
+        else if (obj->Type == MAP_POTATO) {
+            toDraw = potatoImage;
+        }
+        else if (obj->Type == MAP_MONEY) {
+            toDraw = moneyImage;
+        }
+        else if (obj->Type == MAP_MEATLOAF) {
+            toDraw = meatImage;
+        }
+        World::worldToScreen(obj->x,obj->y,screenX, screenY);
+        toDraw->draw(renderer, screenX, screenY);
+        //toDraw->draw(renderer, obj->x, obj->y);
+    }
 }
 
 void Map::update(int elapsed) { 
