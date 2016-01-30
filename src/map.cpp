@@ -1,4 +1,5 @@
 #include <SDL.h>
+#include <stdio.h>
 #include "map.h"
 #include "image.h"
 #include "world.h"
