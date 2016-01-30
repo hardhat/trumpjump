@@ -24,6 +24,8 @@ int main(int argc,char **argv)
 	World::setWidthHeight(640,384);
 	SDL_Renderer *renderer=SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED);
     World::setRenderer(renderer);
+    World::setScale(0.0f);
+
 
 	// Init joystick
 	SDL_Joystick *joy=0;

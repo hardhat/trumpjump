@@ -1,6 +1,7 @@
 #include <SDL.h>
 #include "game.h"
 #include "actor.h"
+#include "world.h"
 #include "map.h"
 #include "hud.h"
 #include "sound.h"
@@ -26,7 +27,7 @@ Game::~Game()
 void Game::init(SDL_Renderer *renderer)
 {
 	/// load all of the images, and so forth.  Run once.
-    if(!title) title=new Image(renderer,"title.png");
+    if(!title) title=new Image(World::getRenderer(),"title.png");
 
     // Prepare into first initial state.
     resetGame();
