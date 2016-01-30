@@ -50,6 +50,7 @@ int main(int argc,char **argv)
 	// TODO calculatre this with acutal time in ms.
 	int elapsed=16;
 	bool done=false;
+	unsigned int old=SDL_GetTicks();
 	while(!done) {
 		// handle events
 		SDL_Event event;
@@ -57,6 +58,8 @@ int main(int argc,char **argv)
 		while(SDL_PollEvent(&event)) {
 			if(event.type==SDL_QUIT) {
 				done=true;
+            } else if(event.type==SDL_KEYUP) {
+                if(event.key.keysym.sym==27) done=true;
 			// dispatch to game object.
 			} else if(event.type==SDL_KEYDOWN) {
 				if(event.key.keysym.sym==' ') {
@@ -83,8 +86,16 @@ int main(int argc,char **argv)
 		// draw screen
 		game.draw(renderer);
 
+        unsigned int now=SDL_GetTicks();
+        int elapsed=now-old;
+        if(elapsed>1000) elapsed=16;
+		if(elapsed>0) game.update(elapsed);
+
+        now=SDL_GetTicks();
+        int delay=(old+16)-now;
+        if(delay>0) SDL_Delay(delay);
 		// update game state
-		game.update(elapsed);
+        old=now;
 	}
 	SDL_Quit();
 	return 0;

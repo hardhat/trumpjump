@@ -93,8 +93,6 @@ void Game::draw(SDL_Renderer *renderer)
     map->draw(renderer);
     hero->draw(renderer);
     hud->draw(renderer);
-    Font::draw(renderer, FF_HEADLINE, "Super Trump Jump",0,0);
-    Font::draw(renderer, FF_BODY, "Score 0    Money 0    Voter confidence: **OOO",0,38);
     SDL_RenderPresent(renderer);
 }
 
