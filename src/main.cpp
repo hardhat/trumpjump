@@ -7,6 +7,7 @@
 #include "font.h"
 #include "sound.h"
 #include "image.h"
+#include "world.h"
 
 Game game;
 
@@ -25,6 +26,7 @@ int main(int argc,char **argv)
 	screensize.x=640;
 	screensize.y=384;
 	SDL_Renderer *renderer=SDL_CreateRenderer(window,-1,SDL_RENDERER_ACCELERATED);
+    World::setRenderer(renderer);
 
 	// Init joystick
 	SDL_Joystick *joy=0;
