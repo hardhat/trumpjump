@@ -57,3 +57,23 @@ void Image::draw(SDL_Renderer *renderer,int x,int y,int w,int h)
 
     SDL_RenderCopy(renderer,texture, NULL, &rect);
 }
+
+void Image::setCellSize(int size)
+{
+    cellSize=size;
+
+}
+
+void Image::draw(SDL_Renderer *renderer,int x,int y,int id)
+{
+
+        if(!texture) return;
+    SDL_Rect rect={x,y,cellSize,cellSize};
+     int tx=id%8;
+        int ty=id/8;
+
+       SDL_Rect src={cellSize*tx,ty*cellSize,cellSize,cellSize};
+
+
+    SDL_RenderCopy(renderer,texture, &src, &rect);
+}

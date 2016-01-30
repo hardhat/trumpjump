@@ -1,6 +1,7 @@
 # depslib dependency file v1.0
-1454169635 source:c:\users\joshua\documents\github\trumpjump\src\actor.cpp
+1454192086 source:c:\users\joshua\documents\github\trumpjump\src\actor.cpp
 	<SDL.h>
+	"world.h"
 	"actor.h"
 
 1394253593 c:\users\joshua\desktop\sdl2-2.0.4\include\sdl.h
@@ -339,7 +340,7 @@
 1454169635 c:\users\joshua\documents\github\trumpjump\src\font.h
 	<SDL.h>
 
-1454179746 source:c:\users\joshua\documents\github\trumpjump\src\game.cpp
+1454188941 source:c:\users\joshua\documents\github\trumpjump\src\game.cpp
 	<SDL.h>
 	"game.h"
 	"actor.h"
@@ -361,13 +362,13 @@
 
 1454169636 c:\users\joshua\documents\github\trumpjump\src\sound.h
 
-1454169635 source:c:\users\joshua\documents\github\trumpjump\src\hud.cpp
+1454188941 source:c:\users\joshua\documents\github\trumpjump\src\hud.cpp
 	<SDL.h>
 	"image.h"
 	"font.h"
 	"hud.h"
 
-1454179752 source:c:\users\joshua\documents\github\trumpjump\src\image.cpp
+1454192232 source:c:\users\joshua\documents\github\trumpjump\src\image.cpp
 	<SDL.h>
 	<SDL_image.h>
 	<stdio.h>
@@ -380,7 +381,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1454179746 source:c:\users\joshua\documents\github\trumpjump\src\main.cpp
+1454188941 source:c:\users\joshua\documents\github\trumpjump\src\main.cpp
 	<SDL.h>
 	<stdio.h>
 	<stdlib.h>
@@ -402,7 +403,7 @@
 	"image.h"
 	"world.h"
 
-1454179752 source:c:\users\joshua\documents\github\trumpjump\src\sound.cpp
+1454188941 source:c:\users\joshua\documents\github\trumpjump\src\sound.cpp
 	<SDL.h>
 	<stdio.h>
 	<SDL_mixer.h>
@@ -418,6 +419,9 @@
 	"begin_code.h"
 	"close_code.h"
 
-1454179746 c:\users\joshua\documents\github\trumpjump\src\world.h
+1454188941 c:\users\joshua\documents\github\trumpjump\src\world.h
 	<SDL.h>
+
+1454188941 source:c:\users\joshua\documents\github\trumpjump\src\world.cpp
+	"world.h"
 

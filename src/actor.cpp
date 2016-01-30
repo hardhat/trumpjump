@@ -2,6 +2,7 @@
 #include "world.h"
 #include "actor.h"
 
+
 Actor::Actor()
 {
     x=128;
@@ -14,8 +15,11 @@ Actor::~Actor()
 }
 
 void Actor::init()
+
 {
     sprite=new Image(World::getRenderer(),"Trump.png");
+
+    sprite->setCellSize(32);
 }
 
 void Actor::update(int elapsed)
@@ -31,6 +35,6 @@ void Actor::handle(bool down)
 void Actor::draw(SDL_Renderer *renderer)
 {
     if(sprite) {
-        sprite->draw(renderer,x,y);
+        sprite->draw(renderer,x,y,0);
     }
 }
