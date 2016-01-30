@@ -2,10 +2,10 @@
 #define SOUND_H
 
 enum SoundEffects {
-	SE_JUMP,
-	SE_START,
+	SFX_JUMP,
+	SFX_START,
 
-	SE_MAX
+	SFX_MAX
 };
 
 class Sound

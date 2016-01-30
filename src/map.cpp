@@ -21,6 +21,11 @@ void Map::newGame()
 
 }
 
+void Map::draw(SDL_Renderer *renderer)
+{
+
+}
+
 void Map::update(int elapsed)
 {
 

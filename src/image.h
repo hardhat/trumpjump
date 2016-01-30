@@ -5,13 +5,13 @@
 
 class Image {
 public:
-	Image(const char *path);
+	Image(SDL_Renderer *renderer,const char *path);
 	~Image();
 	/// call once per program run
 	static void init();
-	/// draw at the global scale
+	/// draw at the global scale, in world coordinates
 	void draw(SDL_Renderer *renderer,int x,int y);
-	/// draw stretched to the requested size in pixel coordinates
+	/// draw stretched to the requested size in world coordinates
 	void draw(SDL_Renderer *renderer,int x,int y,int w,int h);
 	/// draw cell at the global scale, id in row first order
 	void draw(SDL_Renderer *renderer,int x,int y,int id);
@@ -24,6 +24,7 @@ public:
 	/// the renderable texture
 	SDL_Texture *texture;
 private:
+    /// in pixels
 	int cellSize;
 };
 

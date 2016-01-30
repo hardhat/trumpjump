@@ -9,6 +9,7 @@
 #include "image.h"
 
 Game game;
+
 SDL_Point screensize={640,384};
 
 extern "C" {
@@ -44,6 +45,8 @@ int main(int argc,char **argv)
 	Font::init();
 
 	srand(time(NULL));
+
+	game.init(renderer);
 
 	// TODO calculatre this with acutal time in ms.
 	int elapsed=16;
