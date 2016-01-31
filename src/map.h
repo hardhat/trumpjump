@@ -8,7 +8,7 @@
 enum MapItem {
     MAP_SKY = 0,   // 0
     MAP_BARRIER_A, // 1 
-    MAP_BARRIER_B, // 2 
+    MAP_BARRIER_B, // 2 (Not rendered; a placeholder)
     MAP_REDSTAR,   // 3
     MAP_BLUESTAR,  // 4
     MAP_WHITESTART,// 5
@@ -16,9 +16,11 @@ enum MapItem {
     MAP_MEATLOAF,  // 7
     MAP_SIGN,      // 8
     MAP_MONEY,     // 9
+    MAP_SIGN_B,    // 10 (Not rendered; a placeholder)
+    MAP_BABY,      // 11
 };
 
-#define ITEM_KIND 10
+#define ITEM_KIND 12
 typedef struct ColCount {
     int count[ITEM_KIND];
     int non_sky;
@@ -97,9 +99,14 @@ class Map
         Image *meatImage;
         Image *babyImage;
         Image *moneyImage;
+        Image *signImage;
 
         // Platform image; leave as separate as a filler
         Image *platformImage;
+
+
+        // Bouncable images;
+        Image *blueStarImage ;
 
 
         // Debug methods

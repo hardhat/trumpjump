@@ -28,6 +28,8 @@ Map::~Map()
     delete meatImage;
     delete babyImage;
     delete moneyImage;
+    delete signImage;
+    delete blueStarImage ;
 }
 
 void Map::loadImages() {
@@ -37,6 +39,9 @@ void Map::loadImages() {
     meatImage = new Image( World::getRenderer(), "Meatloaf.png");
     babyImage = new Image( World::getRenderer(), "baby.png");
     moneyImage = new Image( World::getRenderer(), "Money.png");
+    signImage = new Image( World::getRenderer(), "signfortrump.png");
+
+    blueStarImage = new Image( World::getRenderer(), "AmericanBlueStar.png");
 }
 
 void Map::init()
@@ -253,12 +258,18 @@ void Map::draw(SDL_Renderer *renderer)
                 case MAP_MEATLOAF:
                     toDraw = meatImage;
                     break;
+                case MAP_BABY:
+                    toDraw = babyImage;
+                    break;
 
-                    // Animation
+                // Animation
                 case MAP_SIGN:
+                    toDraw = signImage;
+                    break; 
                 case MAP_WHITESTART:
                 case MAP_REDSTAR:
                 case MAP_BLUESTAR:
+                    toDraw = blueStarImage;
                     break;
 
                     // SKY
