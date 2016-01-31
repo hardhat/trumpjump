@@ -35,12 +35,20 @@ void Actor::update(int elapsed)
         frame=8;
     }else{
         frameTimer-=elapsed;
-       if (frameTimer<=0){
-        frame=0;
-        frameTimer+=150;
-       }
+        if (frameTimer<=0){
+            if (frame==8){
+                frame=0;
+            }else{
+                frame++;
+            }
+            if(frame==4){
+                frame=0;
+            }
+            frameTimer+=150;
+        }
     }
 }
+
 
 void Actor::handle(bool down)
 {
@@ -52,5 +60,5 @@ void Actor::draw(SDL_Renderer *renderer)
     if(sprite) {
         sprite->draw(renderer,x,y,frame);
     }
-    if (jump==true){Font::draw(renderer, FF_BODY,"hello",0,200);}
+    if (jump==true){Font::draw(renderer, FF_BODY,"Currently Jumping",0,350);}
 }
