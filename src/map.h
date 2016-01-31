@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 #include <vector>
+#include <deque>
 #include "image.h"
 
 enum MapItem {
@@ -19,8 +20,10 @@ enum MapItem {
 
 struct GameObject {
     MapItem Type;
-    float   x;
-    float   y;
+    float   x; // coordinate in world
+    float   y; // coordinate in world
+    int     col; // Cell column, not used yet
+    int     row; // Cell row, not used yet
     GameObject(MapItem t, float x, float y) : Type(t), x(x), y(y) {}
 };
 
@@ -34,10 +37,10 @@ class Map
         void init();
         /// clear and reset the map
         void newGame();
-        /// update the map at a constant speed
-        void update(int elapsed);
         /// draw the current map state
         void draw(SDL_Renderer *renderer);
+        /// update the map at a constant speed
+        void update(int elapsed);
         /// returns the MAP_SKY or MAP_BARRIER, or the item the you'd collect
         int collide(int x,int y,int w,int h);
         /// returns the item
@@ -46,23 +49,33 @@ class Map
         // Load assets
         void loadImages();
 
-        // Generate map
-        void generateObjects();
+        // Generate Column; entry point
+        void processColumn(int column);
+        // Fills the column with Type
+        void populateColumn(int column, MapItem type, int* count, int countSize);
 
-        // NOTE: draw in a buffer? as in to prepare?
-        //  May not be necessary; draw() will only have to draw the current area.
-        // void drawBlock();
-        int w;
-        int h;
-        // TODO Create a World object that implements bijection of w/h<->worldW/h
-        // TODO Accept with global object
-        int worldW;
-        int worldH;
-        MapItem **map;
+        void clearCollulmn(int column);
 
-        std::vector<GameObject> objects;
 
-        int left;	// in screen pixels, for the map scrollng
+
+        // grid information
+        int cellsRow;
+        int cellsColumn;
+        int **mapGrid;
+
+        // Bookkeeper
+        float left;
+        int rightmostCol;
+        int leftmostCol;
+
+        bool needsNextColumn();
+        // Scan a specific column for a specific MapItem type, and fills the buffer with row index. Returns #.
+        int scanColumn(int column, int type, int *buffer, int bufSize);
+
+        // std::vector<GameObject> objects;
+        std::deque<GameObject> objects;
+
+        // int left;	// in screen pixels, for the map scrollng
         // TODO Use this signiture for sprite map, not individual instances
         // Image *itemsImage;
 
