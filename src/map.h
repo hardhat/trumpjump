@@ -87,6 +87,9 @@ class Map
         // Offset from the (0, 0) - Y is not counted yet
         float left;
 
+        // horizontal speed
+        float spd;
+
         // Leftmost Column of the Grid we're showing.
         int leftCol;
         // Rightmost Column of the Grid we're showing.

@@ -70,6 +70,10 @@ void Map::init()
     colSpan = rightCol - leftCol;
     CreateMap();
     // printMap();
+
+    // Trump moves at default speed
+    // spd = TRUMP_SPEED;
+    spd = 0.1f; // TRUMP_SPEED;
 }
 
 void Map::CreateMap() {
@@ -95,6 +99,13 @@ void Map::createColumn(int col) {
     // Clean up first.
     cleanColumn(col);
 
+    if (mapGrid[prevColumn][0] == MAP_BARRIER_A) {
+        mapGrid[currColumn][0] = MAP_BARRIER_B;
+    }
+    else {
+        mapGrid[currColumn][0] = MAP_BARRIER_A;
+    }
+
     scanColumn(prevColumn, scanInfo);
 
     for (int row = 0; row < cRow; row++) {
@@ -105,13 +116,21 @@ void Map::createColumn(int col) {
                 mapGrid[currColumn][row] = MAP_BARRIER_B;
             }
 
+            else if (mapGrid[currColumn][row] == MAP_BARRIER_A && roll(6, 5)) {
+                mapGrid[currColumn][row] = MAP_BARRIER_A;
+                tileCount++;
+            }
+
             // TODO set this Roll to be configurable
             else if (roll(7, 3)) {
                 if (mapGrid[prevColumn][row] == MAP_BARRIER_B) {
                     mapGrid[currColumn][row] = MAP_BARRIER_A;
                 }
                 else {
-                    mapGrid[currColumn][row] = mapGrid[prevColumn][row];
+                    // Not multiple babies
+                    if (!mapGrid[prevColumn][row] == MAP_BABY) {
+                        mapGrid[currColumn][row] = mapGrid[prevColumn][row];
+                    }
                 }
                 tileCount++;
             }
@@ -245,10 +264,11 @@ void Map::draw(SDL_Renderer *renderer)
     for (int x = 0; x < cCol; x++) {
         for (int y = 0; y < cRow; y++) {
             switch (mapGrid[x][y]) {
-                // Collectible
+                // Collidable
                 case MAP_BARRIER_A:
                     toDraw = platformImage;
                     break;
+                // Collectible
                 case MAP_POTATO:
                     toDraw = potatoImage;
                     break;
@@ -294,7 +314,8 @@ void Map::draw(SDL_Renderer *renderer)
 // TODO Map - incorporate 'elapsed' on update
 void Map::update(int elapsed) { 
     // 1. Shift horizontally.
-    left += TRUMP_SPEED;
+    // left += TRUMP_SPEED;
+    left += spd;
 
     if (left > CELL_LENGTH) {
         // Column to be written, in case we start a Barrier this time.
@@ -329,8 +350,27 @@ int Map::collect(int x,int y,int w,int h)
     int gridX, gridY;
     screenToGrid(gridX, gridY, x, y);
 
-    MapItem item = mapGrid[gridX][gridY];
-    mapGrid[gridX][gridY] = MAP_SKY;
+    int prevColumn = reminder(gridX-1, cCol);
+    // Column to be written, in case we start a Barrier this time.
+    int nextColumn = reminder(gridX+1, cCol);
+    // Current Column to be created.
+    int currColumn = reminder(gridX, cCol);
+
+    MapItem item = mapGrid[currColumn][gridY];
+
+    // MAP_BARRIER Really shouldn't be collectible, but if the user insists, do so correctly.
+    if (item == MAP_BARRIER_A) {
+        mapGrid[currColumn][gridY] = MAP_SKY;
+        mapGrid[nextColumn][gridY] = MAP_SKY;
+    }
+    else if (item == MAP_BARRIER_B) {
+        mapGrid[prevColumn][gridY] = MAP_SKY;
+        mapGrid[currColumn][gridY] = MAP_SKY;
+    }
+    else {
+        mapGrid[gridX][gridY] = MAP_SKY;
+    }
+    // printf("%d\n", item);
 
     return (int) item;
 }
