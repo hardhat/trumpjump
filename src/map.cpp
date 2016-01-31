@@ -94,9 +94,18 @@ void Map::init()
 }
 
 void Map::CreateMap() {
+
+
     for (int i = 1; i < cCol; i++) {
         createColumn(i);
     }
+
+    for (int i = 0; i < 5; i++) {
+        mapGrid[i*2][cRow/2] = MAP_BARRIER_A;
+        mapGrid[i*2+1][cRow/2] = MAP_BARRIER_B;
+    }
+
+
 }
 
 
