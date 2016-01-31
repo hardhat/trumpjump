@@ -1,8 +1,9 @@
 # depslib dependency file v1.0
-1454192086 source:c:\users\joshua\documents\github\trumpjump\src\actor.cpp
+1454201602 source:c:\users\joshua\documents\github\trumpjump\src\actor.cpp
 	<SDL.h>
 	"world.h"
 	"actor.h"
+	"font.h"
 
 1394253593 c:\users\joshua\desktop\sdl2-2.0.4\include\sdl.h
 	"SDL_main.h"
@@ -319,7 +320,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1454199945 c:\users\joshua\documents\github\trumpjump\src\actor.h
+1454201574 c:\users\joshua\documents\github\trumpjump\src\actor.h
 	<SDL.h>
 	"image.h"
 
@@ -340,7 +341,7 @@
 1454169635 c:\users\joshua\documents\github\trumpjump\src\font.h
 	<SDL.h>
 
-1454193387 source:c:\users\joshua\documents\github\trumpjump\src\game.cpp
+1454201574 source:c:\users\joshua\documents\github\trumpjump\src\game.cpp
 	<SDL.h>
 	"game.h"
 	"actor.h"
