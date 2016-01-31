@@ -58,18 +58,17 @@ int main(int argc,char **argv)
 		SDL_Event event;
 
 		while(SDL_PollEvent(&event)) {
+			// dispatch to game object.
 			if(event.type==SDL_QUIT) {
 				done=true;
             } else if(event.type==SDL_KEYUP) {
                 if(event.key.keysym.sym==27) done=true;
-			// dispatch to game object.
+				if(event.key.keysym.sym==' ') {
+					game.handleKey(' ',false);
+				}
 			} else if(event.type==SDL_KEYDOWN) {
 				if(event.key.keysym.sym==' ') {
 					game.handleKey(' ',true);
-				}
-			} else if(event.type==SDL_KEYUP) {
-				if(event.key.keysym.sym==' ') {
-					game.handleKey(' ',false);
 				}
 			} else if(event.type==SDL_MOUSEBUTTONDOWN) {
 				int x=event.button.x;
