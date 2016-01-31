@@ -78,7 +78,7 @@ void Map::init()
             animationOffsets[i][j] = rand() % SINE_TABLE_SIZE;
         }
     }
-    
+
     // Pre-compute SINE table
     // SINE_SIZE
 
@@ -188,7 +188,7 @@ void Map::createColumn(int col) {
 
 
     scanColumn(currColumn, scanInfo);
-    int totalStars = scanInfo.count[3] + scanInfo.count[4] + scanInfo.count[5]; 
+    int totalStars = scanInfo.count[3] + scanInfo.count[4] + scanInfo.count[5];
     // Same thing with Stars
     for( ;totalStars < COL_STAR_DESIRED; totalStars++) {
         MapItem *newTile;
@@ -343,7 +343,7 @@ void Map::draw(SDL_Renderer *renderer)
                 // Animation
                 case MAP_SIGN:
                     toDraw = signImage;
-                    break; 
+                    break;
                 case MAP_WHITESTART:
                     toDraw = whiteStarImage;
                     disposition = sineTable[animationOffsets[x][y]++ % SINE_TABLE_SIZE];
@@ -471,9 +471,8 @@ bool roll(int die, int eye) {
 
 
 int reminder(int dividend, int divisor) {
+    if(divisor<0) divisor = -divisor;
+    if(dividend<0) dividend = -dividend;
     int mod = dividend % divisor;
-    if (mod < 0) {
-        return (mod + divisor) % divisor;
-    }
     return mod;
 }
