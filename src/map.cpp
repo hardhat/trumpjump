@@ -128,7 +128,6 @@ void Map::createColumn(int col) {
             if (roll(10, 1) && platformCount < COL_BARRIER_MIN) {
                 mapGrid[currColumn][row] = MAP_BARRIER_A;
                 platformCount++;
-                printf("%d\n", platformCount);
             }
         }
         if (mapGrid[prevColumn][row] == MAP_BARRIER_A) {
