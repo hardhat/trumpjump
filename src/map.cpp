@@ -90,15 +90,16 @@ void Map::createColumn(int col) {
     for (int row = 0; row < cRow; row++) {
         if (mapGrid[prevColumn][row] != MAP_SKY) {
 
+            // If BARRIER_A, continue the block.
+            if (mapGrid[prevColumn][row] == MAP_BARRIER_A) {
+                mapGrid[currColumn][row] = MAP_BARRIER_B;
+            }
+
             // TODO set this Roll to be configurable
-            if (roll(7, 3)) {
-                if (mapGrid[prevColumn][row] == MAP_BARRIER_A) {
-                    mapGrid[currColumn][row] = MAP_BARRIER_B;
-                }
-                else if (mapGrid[prevColumn][row] == MAP_BARRIER_B) {
+            else if (roll(7, 3)) {
+                if (mapGrid[prevColumn][row] == MAP_BARRIER_B) {
                     mapGrid[currColumn][row] = MAP_BARRIER_A;
                 }
-
                 else {
                     mapGrid[currColumn][row] = mapGrid[prevColumn][row];
                 }
