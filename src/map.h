@@ -27,6 +27,8 @@ typedef struct ColCount {
 } ColCount;
 
 
+
+
 struct GameObject {
     MapItem Type;
     float   x;
@@ -54,6 +56,18 @@ class Map
         int collide(int x,int y,int w,int h);
         /// returns the item
         int collect(int x,int y,int w,int h);
+
+        // Public debug method; move Trump Up and Down(i.e., move World Down and Up)
+        int handle(int key, bool down);
+
+        // Published method; move world forward but Trump stops(Blocked by a block maybe?)
+        int stopTrump();
+
+        // Published method; move Trump a bit faster. 
+        int sprint();
+
+        // Published method; move Trump at normal speed.
+        int run();
     private:
         // Load assets
         void loadImages();
@@ -84,8 +98,14 @@ class Map
         // the Grid of MapItem. Access by [X][Y] coordinate
         MapItem **mapGrid;
 
-        // Offset from the (0, 0) - Y is not counted yet
+        // one-to-one to mapgrid; computes vertical disposition with (0,0) being the highest.
+        int **animationOffsets;
+        // Pre-computed sine table; use SINE_SIZE constant
+
+        // Offset from the (0, 0) - disposition in X
         float left;
+        // Offset from the (0, 0) - disposition in Y
+        float top;
 
         // horizontal speed
         float spd;
@@ -107,10 +127,10 @@ class Map
         // Platform image; leave as separate as a filler
         Image *platformImage;
 
-
         // Bouncable images;
-        Image *blueStarImage ;
-
+        Image *blueStarImage;
+        Image *redStarImage;
+        Image *whiteStarImage;
 
         // Debug methods
         void printMap();
