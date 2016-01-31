@@ -102,10 +102,16 @@ void Actor::updateGravity(Map *map)
         for( i=0; i<8; i++) {
                 int item=map->collide(x, newy+32, 32, 32 );
                 int item2=map->collide(x+16, newy, 32, 32 );
+                bool barrier1= (item!=MAP_BARRIER_A && item!=MAP_BARRIER_B);
+                bool barrier2 = (item2!=MAP_BARRIER_A && item2!=MAP_BARRIER_B);
                 if( item==MAP_SKY ) break; // a safe place to move the item to.
-                if( (item!=MAP_BARRIER_A && item!=MAP_BARRIER_B) && (item2!=MAP_BARRIER_A && item2!=MAP_BARRIER_B)) {
-                    item=map->collect(x,newy+32, 32, 32);
-                    item2=map->collect(x+16,newy, 32, 32);
+                if (barrier1 || barrier2) {
+                    if (barrier1) {
+                        item=map->collect(x,newy+32, 32, 32);
+                    }
+                    if (barrier2) {
+                        item2=map->collect(x+16,newy, 32, 32);
+                    }
                     collectedItem(item);
                     break;
                 }
