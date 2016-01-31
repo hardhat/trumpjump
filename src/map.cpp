@@ -11,9 +11,9 @@
 // returns chance of <eye> over <die> roll
 bool roll(int die, int eye);
 
-// Constants
 #define CELL_LENGTH 16
 #define COL_TILE_DESIRED 7
+#define TRUMP_SPEED 0.7f
 
 Map::Map()
 {
@@ -167,8 +167,12 @@ void Map::gridToScreen(int gridX, int gridY, int &screenX, int &screenY) {
     nominalY = gridY * 16.0f;
 
     // For now;
-    adjustedX = nominalX * 1.0f;
+    adjustedX = (nominalX - left) * 1.0f;
     adjustedY = nominalY * 1.0f;
+
+    if (gridX == 1 && gridY == 1) {
+        printf("%f, %f\n", adjustedX, adjustedY);
+    }
 
     World::worldToScreen(adjustedX, adjustedY, screenX, screenY);
 }
@@ -221,6 +225,10 @@ void Map::draw(SDL_Renderer *renderer)
 }
 
 void Map::update(int elapsed) { 
+    // 1. Shift horizontally.
+    left += TRUMP_SPEED;
+
+
     // data structure - this is a case where a linked list(vector?) would work
 
     // TODO 1. shift horizontally
