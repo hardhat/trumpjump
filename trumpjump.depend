@@ -322,7 +322,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1454271258 /home/dalew/cc/trumpjump/src/actor.h
+1454272964 /home/dalew/cc/trumpjump/src/actor.h
 	<SDL.h>
 	"image.h"
 
@@ -423,7 +423,7 @@
 	<iostream>
 	<vector>
 
-1454265032 /home/dalew/cc/trumpjump/src/map.h
+1454272964 /home/dalew/cc/trumpjump/src/map.h
 	<SDL.h>
 	<vector>
 	"image.h"
