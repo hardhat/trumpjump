@@ -43,13 +43,14 @@ void Game::resetGame()
     }
     if(!hero) {
         hero=new Actor();
-        hero->init();
     }
+    hero->init();
     hero->resetScore();
     if(!map) {
         map=new Map();
         map->init();
     }
+    map->newGame();
     Sound::playSong(0);
     Sound::playSfx(SFX_START);
 }
@@ -59,6 +60,8 @@ void Game::handleKey(int key,bool down)
 {
     if(mode==MODE_MENU) {
         mode=MODE_PLAY;
+    } else if(mode==MODE_LOSE) {
+        if(down==false && loseTimer==0) resetGame();
     } else {
         hero->handle(down);
     }
@@ -69,6 +72,8 @@ void Game::handleButton(int x,int y,bool down)
 {
     if(mode==MODE_MENU) {
         mode=MODE_PLAY;
+    } else if(mode==MODE_LOSE) {
+        if(down==false && loseTimer==0) resetGame();
     } else {
         hero->handle(down);
         map->collide(x, y, 0, 0);
@@ -98,6 +103,20 @@ void Game::draw(SDL_Renderer *renderer)
     map->draw(renderer);
     hero->draw(renderer);
     hud->draw(renderer);
+    if(mode==MODE_LOSE) {
+        int cw=0,ch=0,cx,cy;
+        Font::extent(FF_HEADLINE,"Game Over",cw,ch);
+        cy=(World::getHeight()-ch)/2;
+        cx=(World::getWidth()-cw)/2;
+        Font::draw(renderer,FF_HEADLINE,"Game Over",cx,cy);
+        if(loseTimer==0) {
+            cy+=ch+3;
+            Font::extent(FF_BODY,"Tap to Play Again",cw,ch);
+            cx=(World::getWidth()-cw)/2;
+            Font::draw(renderer,FF_BODY,"Tap to Play Again",cx,cy);
+        }
+    }
+
     SDL_RenderPresent(renderer);
 }
 
@@ -109,5 +128,13 @@ void Game::update(int elapsed)
         hero->update(elapsed,map);
         score=hero->getScore();
         hud->update(elapsed,score);
+        if(hero->getY()>World::getHeight()) {
+            mode=MODE_LOSE;
+            loseTimer=2000;
+            Sound::playSfx(SFX_START);
+        }
+    } else if(mode==MODE_LOSE) {
+        loseTimer-=elapsed;
+        if(loseTimer<0) loseTimer=0;
     }
 }

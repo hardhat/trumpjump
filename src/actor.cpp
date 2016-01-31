@@ -8,6 +8,7 @@
 
 Actor::Actor()
 {
+    sprite=NULL;
     x=128;
     y=160;
     jump=false;
@@ -32,11 +33,24 @@ Actor::~Actor()
 void Actor::init()
 
 {
-    sprite=new Image(World::getRenderer(),"Trump.png");
-
-    sprite->setCellSize(32);
-
+    if(!sprite) {
+        sprite=new Image(World::getRenderer(),"Trump.png");
+        sprite->setCellSize(32);
+    }
+    x=128;
+    y=160;
+    jump=false;
+    // Animation state
+    frame=0;
+    frameTimer=150;
+    // Power up
+    powerup=0;
+    timer=0;
+    // physics
+    ay=0;
+    vy=0;
     score=0;
+    physicsTimer=0;
 }
 
 void Actor::update(int elapsed, Map *map)
