@@ -7,7 +7,7 @@
 
 enum MapItem {
     MAP_SKY = 0,   // 0
-    MAP_BARRIER_A, // 1 
+    MAP_BARRIER_A, // 1
     MAP_BARRIER_B, // 2 (Not rendered; a placeholder)
     MAP_REDSTAR,   // 3
     MAP_BLUESTAR,  // 4
@@ -63,7 +63,7 @@ class Map
         // Published method; move world forward but Trump stops(Blocked by a block maybe?)
         int stopTrump();
 
-        // Published method; move Trump a bit faster. 
+        // Published method; move Trump a bit faster.
         int sprint();
 
         // Published method; move Trump at normal speed.
@@ -71,6 +71,9 @@ class Map
     private:
         // Load assets
         void loadImages();
+
+        int getGrid(int x,int y);
+        void setGrid(int x,int y,int value);
 
         // Converter function from Grid coordinates and screen coordinates, back and forth.
         void gridToScreen(int gridX, int gridY, int &screenX, int &screenY);

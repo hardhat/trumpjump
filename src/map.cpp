@@ -25,6 +25,26 @@ static float sineTable[] = { 0.01745f, 0.05234f, 0.08716f, 0.12187f, 0.15643f, 0
 #define SINE_SIZE 20
 Map::Map()
 {
+    cCol=0;
+    cRow=0;
+    colSpan=0;
+    mapGrid=0;
+    animationOffsets=0;
+    left=0;
+    top=0;
+    spd=0;
+    leftCol=0;
+    rightCol=0;
+    platformImage=0;
+    potatoImage=0;
+    meatImage=0;
+    babyImage=0;
+    moneyImage=0;
+    signImage=0;
+    blueStarImage=0;
+    redStarImage=0;
+    whiteStarImage=0;
+
 }
 
 Map::~Map()
@@ -74,7 +94,7 @@ void Map::init()
         mapGrid[i] = new MapItem[cRow];
         animationOffsets[i] = new int[cRow];
         for (int j = 0; j < cRow; j++) {
-            mapGrid[i][j] = MAP_SKY;
+            setGrid(i,j,MAP_SKY);
             animationOffsets[i][j] = rand() % SINE_TABLE_SIZE;
         }
     }
@@ -86,11 +106,29 @@ void Map::init()
     rightCol = (World::getWidth() / CELL_LENGTH) - 1; // Could be stretched
     colSpan = rightCol - leftCol;
     CreateMap();
-    // printMap();
+    printMap();
 
     // Trump moves at default speed
     spd = TRUMP_SPEED;
     // spd = 0.1f; // TRUMP_SPEED;
+}
+
+void Map::setGrid(int x,int y,int value)
+{
+    if(x<0 || y<0 || x>=cCol || y>=cRow) {
+        fprintf(stderr,"Out of bounds write to grid[%d][%d]=%d\n",x,y,value);
+        return;
+    }
+    mapGrid[x][y]=(MapItem)value;
+}
+
+int Map::getGrid(int x,int y)
+{
+    if(x<0 || y<0 || x>=cCol || y>=cRow) {
+        fprintf(stderr,"Out of bounds read from grid[%d][%d]\n",x,y);
+        return MAP_SKY;
+    }
+    return mapGrid[x][y];
 }
 
 void Map::CreateMap() {
@@ -101,8 +139,8 @@ void Map::CreateMap() {
     }
 
     for (int i = 0; i < 5; i++) {
-        mapGrid[i*2][cRow/2] = MAP_BARRIER_A;
-        mapGrid[i*2+1][cRow/2] = MAP_BARRIER_B;
+        setGrid(i*2,cRow/2,MAP_BARRIER_A);
+        setGrid(i*2+1,cRow/2,MAP_BARRIER_B);
     }
 
 
@@ -133,32 +171,32 @@ void Map::createColumn(int col) {
             }
 
     for (int row = 1; row < cRow; row++) {
-        if (mapGrid[prevColumn][row] == MAP_SKY) {
+        if (getGrid(prevColumn,row) == MAP_SKY) {
             if (roll(10, 1) && platformCount < COL_BARRIER_MIN) {
-                mapGrid[currColumn][row] = MAP_BARRIER_A;
+                setGrid(currColumn,row,MAP_BARRIER_A);
                 platformCount++;
             }
         }
-        if (mapGrid[prevColumn][row] == MAP_BARRIER_A) {
-            mapGrid[currColumn][row] = MAP_BARRIER_B;
+        if (getGrid(prevColumn,row) == MAP_BARRIER_A) {
+            setGrid(currColumn,row,MAP_BARRIER_B);
         }
-        if (mapGrid[currColumn][row] == MAP_BARRIER_A && roll(6, 5)) {
-            mapGrid[currColumn][row] = MAP_BARRIER_A;
+        if (getGrid(currColumn,row) == MAP_BARRIER_A && roll(6, 5)) {
+            setGrid(currColumn,row,MAP_BARRIER_A);
             tileCount++;
         }
 
 
-        if (mapGrid[prevColumn][row] != MAP_SKY) {
+        if (getGrid(prevColumn,row) != MAP_SKY) {
 
             // TODO set this Roll to be configurable
             if (roll(7, 3)) {
-                if (mapGrid[prevColumn][row] == MAP_BARRIER_B) {
-                    mapGrid[currColumn][row] = MAP_BARRIER_A;
+                if (getGrid(prevColumn,row) == MAP_BARRIER_B) {
+                    setGrid(currColumn,row,MAP_BARRIER_A);
                 }
                 else {
                     // Not multiple babies
-                    if (!mapGrid[prevColumn][row] == MAP_BABY) {
-                        mapGrid[currColumn][row] = mapGrid[prevColumn][row];
+                    if (!getGrid(prevColumn,row) == MAP_BABY) {
+                        setGrid(currColumn,row,getGrid(prevColumn,row));
                     }
                 }
                 // tileCount++;
@@ -168,20 +206,20 @@ void Map::createColumn(int col) {
 
     // If this column has not enough tiles, give it another shot.
     for( ;tileCount < COL_TILE_DESIRED; tileCount++) {
-        MapItem *newTile;
+        MapItem newTile;
         int nRow = rand() % cRow;
 
         // TODO set this Roll to be configurable
         if (roll(7, 5)) {
-            newTile = &mapGrid[currColumn][nRow];
+            newTile = (MapItem)getGrid(currColumn,nRow);
 
-            if (*newTile == MAP_SKY) {
-                *newTile = MapItem(rand() % ITEM_KIND);
-
+            if (newTile == MAP_SKY) {
+                int target=rand() % ITEM_KIND;
                 // Not gonna bother with retroactive barriering.
-                if (*newTile == MAP_BARRIER_B) {
-                    *newTile = MAP_SKY;
+                if (target == MAP_BARRIER_B) {
+                    target = MAP_SKY;
                 }
+                setGrid(currColumn,nRow,target);
             }
         }
     }
@@ -191,20 +229,20 @@ void Map::createColumn(int col) {
     int totalStars = scanInfo.count[3] + scanInfo.count[4] + scanInfo.count[5];
     // Same thing with Stars
     for( ;totalStars < COL_STAR_DESIRED; totalStars++) {
-        MapItem *newTile;
+        MapItem newTile;
         int nRow = rand() % cRow;
 
         // TODO set this Roll to be configurable
         if (roll(7, 5)) {
-            newTile = &mapGrid[currColumn][nRow];
+            newTile = (MapItem)getGrid(currColumn,nRow);
 
-            if (*newTile == MAP_SKY) {
-                *newTile = MapItem(rand() % 3 + 2);
-
+            if (newTile == MAP_SKY) {
+                int target=rand() % ITEM_KIND;
                 // Not gonna bother with retroactive barriering.
-                if (*newTile == MAP_BARRIER_B) {
-                    *newTile = MAP_SKY;
+                if (target == MAP_BARRIER_B) {
+                    target = MAP_SKY;
                 }
+                setGrid(currColumn,nRow,target);
             }
         }
     }
@@ -216,7 +254,7 @@ void Map::scanColumn(int col, ColCount &result) {
         result.count[i] = 0;
     }
     for (int row = 0; row < cRow; row++) {
-        result.count[mapGrid[col][row]]++;
+        result.count[getGrid(col,row)]++;
     }
     result.non_sky = cCol - result.count[MAP_SKY];
 }
@@ -227,12 +265,12 @@ void Map::cleanColumn(int col) {
 
     for (int row = 0; row < cRow; row++) {
         // If BARRIER_A, then clean the next part as well.
-        if (mapGrid[col][row] == MAP_BARRIER_A) {
-            mapGrid[nextCol][row] = MAP_SKY;
+        if (getGrid(col,row) == MAP_BARRIER_A) {
+            setGrid(nextCol,row,MAP_SKY);
         }
         // If BARRIER_B, leave it alone; we don't want to be cleaning up first half.
-        if (mapGrid[col][row] != MAP_BARRIER_B) {
-            mapGrid[col][row] = MAP_SKY;
+        if (getGrid(col,row) != MAP_BARRIER_B) {
+            setGrid(col,row,MAP_SKY);
         }
     }
 }
@@ -317,7 +355,7 @@ void Map::draw(SDL_Renderer *renderer)
     // TODO from leftCol to rightCol
     for (int x = 0; x < cCol; x++) {
         for (int y = 0; y < cRow; y++) {
-            switch (mapGrid[x][y]) {
+            switch (getGrid(x,y)) {
                 // Collidable
                 case MAP_BARRIER_A:
                     toDraw = platformImage;
@@ -410,7 +448,7 @@ int Map::collide(int x,int y,int w,int h)
     screenToGrid(gridX, gridY, x, y);
 
     // printf("collide; :[%d, %d] %d, %d = %d\n", gridX, gridY, x, y, mapGrid[gridX][gridY]);
-    return mapGrid[gridX][gridY];
+    return getGrid(gridX,gridY);
 }
 
 int Map::collect(int x,int y,int w,int h)
@@ -424,19 +462,19 @@ int Map::collect(int x,int y,int w,int h)
     // Current Column to be created.
     int currColumn = reminder(gridX, cCol);
 
-    MapItem item = mapGrid[currColumn][gridY];
+    MapItem item = (MapItem)getGrid(currColumn,gridY);
 
     // MAP_BARRIER Really shouldn't be collectible, but if the user insists, do so correctly.
     if (item == MAP_BARRIER_A) {
-        mapGrid[currColumn][gridY] = MAP_SKY;
-        mapGrid[nextColumn][gridY] = MAP_SKY;
+        setGrid(currColumn,gridY, MAP_SKY);
+        setGrid(nextColumn,gridY, MAP_SKY);
     }
     else if (item == MAP_BARRIER_B) {
-        mapGrid[prevColumn][gridY] = MAP_SKY;
-        mapGrid[currColumn][gridY] = MAP_SKY;
+        setGrid(prevColumn,gridY,MAP_SKY);
+        setGrid(currColumn,gridY,MAP_SKY);
     }
     else {
-        mapGrid[gridX][gridY] = MAP_SKY;
+        setGrid(gridX,gridY,MAP_SKY);
     }
     // printf("%d\n", item);
 
@@ -449,7 +487,7 @@ void Map::printMap() {
     for (int i = 0; i < cRow; i++) {
         printf("[");
         for (int j = 0; j < cCol; j++) {
-            printf(" %d ", mapGrid[j][i]);
+            printf(" %d ", getGrid(j,i));
         }
         printf("]\n");
     }
