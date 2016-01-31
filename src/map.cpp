@@ -89,7 +89,7 @@ void Map::createColumn(int col) {
     // Column to be examined.
     int prevColumn = reminder(col-1, cCol);
     // Column to be written, in case we start a Barrier this time.
-    int nextColumn = reminder(col+1, cCol);
+    //int nextColumn = reminder(col+1, cCol);
     // Current Column to be created.
     int currColumn = reminder(col, cCol);
 
@@ -148,7 +148,7 @@ void Map::createColumn(int col) {
 
             if (*newTile == MAP_SKY) {
                 *newTile = MapItem(rand() % ITEM_KIND);
-                
+
                 // Not gonna bother with retroactive barriering.
                 if (*newTile == MAP_BARRIER_B) {
                     *newTile = MAP_SKY;
@@ -245,7 +245,7 @@ void Map::screenToGrid(int &gridX, int &gridY, int screenX, int screenY) {
     // printf("%f, %f, %d, %d\n", targetX, targetY, gridX, gridY);
     targetX = (targetX + left) / CELL_LENGTH;
     targetY = targetY / CELL_LENGTH;
-    
+
     gridX = (int) std::floor(targetX) + leftCol;
     gridX = reminder(gridX, cCol);
     gridY = (int) std::floor(targetY);
@@ -312,7 +312,7 @@ void Map::draw(SDL_Renderer *renderer)
 
 
 // TODO Map - incorporate 'elapsed' on update
-void Map::update(int elapsed) { 
+void Map::update(int elapsed) {
     // 1. Shift horizontally.
     // left += TRUMP_SPEED;
     left += spd;

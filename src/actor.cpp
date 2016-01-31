@@ -20,6 +20,7 @@ Actor::Actor()
     ay=0;
     vy=0;
     score=0;
+    physicsTimer=0;
 }
 
 Actor::~Actor()
@@ -58,11 +59,11 @@ void Actor::update(int elapsed, Map *map)
     }
     // Apply the physics.
     printf("Physics!!! %d\n",elapsed);
-    while(elapsed>0) {
-        elapsed-=16;
+    physicsTimer+=elapsed;
+    while(physicsTimer>16) {
+        physicsTimer-=16;
         updateGravity(map);
     }
-
 }
 
 void Actor::updateGravity(Map *map)
@@ -91,6 +92,9 @@ void Actor::updateGravity(Map *map)
                     item=map->collect(x,newy+32, 32, 32);
                     collectedItem(item);
                     break;
+                }
+                if( item==MAP_BARRIER_A || item==MAP_BARRIER_B) {
+                    if(vy<0) break;     // Jump up through walls!
                 }
                 // we don't want to be inside the object, so guess we can move half the distance.
                 vy/=2.0f;

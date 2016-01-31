@@ -91,6 +91,7 @@ void Sound::playSfx(int id)
                         Mix_HaltChannel(channel);
                         return;
                 }
+                printf("Playing sfx %d\n",id);
                 Mix_PlayChannel(channel, c, 0); // play on channel.
                 sfxMap[id]=c;
         }

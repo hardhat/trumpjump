@@ -51,5 +51,7 @@ private:
 	float vy;
     /// the points
     int score;
+    /// the timer to slow the physics
+    int physicsTimer;
 };
 #endif
