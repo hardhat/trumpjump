@@ -41,7 +41,7 @@ void Actor::update(int elapsed)
             }else{
                 frame++;
             }
-            if(frame==4){
+            if(frame==5){
                 frame=0;
             }
             frameTimer+=150;

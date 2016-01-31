@@ -59,6 +59,8 @@
 		<Unit filename="src/map.h" />
 		<Unit filename="src/sound.cpp" />
 		<Unit filename="src/sound.h" />
+		<Unit filename="src/world.cpp" />
+		<Unit filename="src/world.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

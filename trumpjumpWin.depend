@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1454204702 source:c:\users\joshua\documents\github\trumpjump\src\actor.cpp
+1454266654 source:c:\users\joshua\documents\github\trumpjump\src\actor.cpp
 	<SDL.h>
 	"world.h"
 	"actor.h"
@@ -341,7 +341,7 @@
 1454169635 c:\users\joshua\documents\github\trumpjump\src\font.h
 	<SDL.h>
 
-1454201574 source:c:\users\joshua\documents\github\trumpjump\src\game.cpp
+1454226712 source:c:\users\joshua\documents\github\trumpjump\src\game.cpp
 	<SDL.h>
 	"game.h"
 	"actor.h"
@@ -355,7 +355,7 @@
 	<SDL.h>
 	"image.h"
 
-1454193387 c:\users\joshua\documents\github\trumpjump\src\map.h
+1454226712 c:\users\joshua\documents\github\trumpjump\src\map.h
 	<SDL.h>
 	<vector>
 	"image.h"
@@ -399,9 +399,11 @@
 1454169635 c:\users\joshua\documents\github\trumpjump\src\main.h
 	<SDL.h>
 
-1454193387 source:c:\users\joshua\documents\github\trumpjump\src\map.cpp
+1454226712 source:c:\users\joshua\documents\github\trumpjump\src\map.cpp
 	<SDL.h>
 	<stdio.h>
+	<cstdlib>
+	<cmath>
 	"map.h"
 	"image.h"
 	"world.h"
