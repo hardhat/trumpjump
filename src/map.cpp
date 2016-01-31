@@ -189,7 +189,7 @@ void Map::screenToGrid(int &gridX, int &gridY, int screenX, int screenY) {
     targetY = worldY;
 
     // printf("%f, %f, %d, %d\n", targetX, targetY, gridX, gridY);
-    targetX = targetX / CELL_LENGTH;
+    targetX = (targetX +left) / CELL_LENGTH;
     targetY = targetY / CELL_LENGTH;
     
     gridX = (int) std::floor(targetX);
@@ -247,25 +247,20 @@ void Map::draw(SDL_Renderer *renderer)
     }
 }
 
-bool tried = false;
 void Map::update(int elapsed) { 
-    if (tried) return;
-    // printf("COLLIDE: %d, %d: %d\n", 0, 0, collide(0, 0, 0, 0));
-    for (int i = 0; i < 18; i++) {
-        for (int j = 0; j < 18; j++) {
-            // collide(i, j, 0, 0);
-            // printf("Collide: %d, %d: %d\n", i, j, collide(i, j, 0, 0));
-        }
-    }
-    tried = true;
     // 1. Shift horizontally.
-    // left += TRUMP_SPEED;
-
-
-    // data structure - this is a case where a linked list(vector?) would work
+    left += TRUMP_SPEED;
 
     // TODO 2. determine if still in display
     // TODO 3. dispose
+}
+
+void Map::testCollide(int x, int y) {
+    for (int i = 0; i < 18; i++) {
+        for (int j = 0; j < 18; j++) {
+            // printf("Collide: %d, %d: %d\n", i, j, collide(i, j, 0, 0));
+        }
+    }
 }
 
 int Map::collide(int x,int y,int w,int h)

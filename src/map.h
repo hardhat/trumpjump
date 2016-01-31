@@ -100,6 +100,8 @@ class Map
         // Debug methods
         void printMap();
         void printCount(ColCount &c);
+
+        void testCollide(int x, int y);
 };
 
 #endif
