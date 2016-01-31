@@ -94,7 +94,7 @@ int main(int argc,char **argv)
         elapsed=now-old;
         if(elapsed>1000) elapsed=16;
 		if(elapsed>0) game.update(elapsed);
-printf("Elapsed: %d\n",elapsed);
+        //printf("Elapsed: %d\n",elapsed);
 
         int delay=(old+16)-now;
         if(delay>0) SDL_Delay(delay);
