@@ -6,7 +6,7 @@
 
 Hud::Hud()
 {
-
+    score=0;
 }
 
 Hud::~Hud()
@@ -16,16 +16,18 @@ Hud::~Hud()
 
 void Hud::init()
 {
-
+    score=0;
 }
 
 void Hud::draw(SDL_Renderer *renderer)
 {
     Font::draw(renderer, FF_HEADLINE, "Super Trump Jump",0,0);
-    Font::draw(renderer, FF_BODY, "Score 0    Money 0    Voter confidence: **OOO",0,38);
+    char buf[256];
+    sprintf(buf,"Popularity %d voters",score);
+    Font::draw(renderer, FF_BODY, buf ,0,38);
 }
 
-void Hud::update(int elapsed)
+void Hud::update(int elapsed,int newScore)
 {
-
+    score=newScore;
 }

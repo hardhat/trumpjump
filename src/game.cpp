@@ -45,6 +45,7 @@ void Game::resetGame()
         hero=new Actor();
         hero->init();
     }
+    hero->resetScore();
     if(!map) {
         map=new Map();
         map->init();
@@ -106,6 +107,7 @@ void Game::update(int elapsed)
     if(mode==MODE_PLAY) {
         map->update(elapsed);
         hero->update(elapsed,map);
-        hud->update(elapsed);
+        score=hero->getScore();
+        hud->update(elapsed,score);
     }
 }

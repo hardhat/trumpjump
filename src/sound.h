@@ -5,6 +5,11 @@ enum SoundEffects {
 	SFX_JUMP,
 	SFX_START,
 	SFX_MATCH,
+	SFX_POTATO,
+	SFX_MEATLOAF,
+	SFX_SIGN,
+	SFX_MONEY,
+	SFX_BABY,
 
 	SFX_MAX
 };

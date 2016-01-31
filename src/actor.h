@@ -29,6 +29,9 @@ public:
 	void draw(SDL_Renderer *renderer);
 	void update(int elapsed,Map *map);
 	void updateGravity(Map *map);
+	void collectedItem(int item);
+	int getScore();
+	void resetScore();
 private:
 	float x,y;
 	Image *sprite;
@@ -46,5 +49,7 @@ private:
 	float ay;
 	/// the vertical speed
 	float vy;
+    /// the points
+    int score;
 };
 #endif

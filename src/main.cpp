@@ -35,6 +35,9 @@ int main(int argc,char **argv)
 	if(SDL_NumJoysticks()>1) {
 		joy=SDL_JoystickOpen(1);
 	}
+	if(joy) {
+        printf("Joystick activated.\n");
+	}
 
 	// Init audio
 	Sound::init();

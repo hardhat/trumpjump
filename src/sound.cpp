@@ -65,7 +65,11 @@ const char *sfxName[]={
 	"data/jump.wav",
 	"data/start.wav",
 	"data/match.wav",
-
+	"data/potato.wav",
+	"data/meatloaf.wav",
+	"data/chaching.wav",
+	"data/rich.wav",
+	"data/baby.wav",
 };
 
 void Sound::playSfx(int id)

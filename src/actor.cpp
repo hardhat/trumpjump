@@ -19,6 +19,7 @@ Actor::Actor()
     // physics
     ay=0;
     vy=0;
+    score=0;
 }
 
 Actor::~Actor()
@@ -32,6 +33,8 @@ void Actor::init()
     sprite=new Image(World::getRenderer(),"Trump.png");
 
     sprite->setCellSize(32);
+
+    score=0;
 }
 
 void Actor::update(int elapsed, Map *map)
@@ -82,7 +85,13 @@ void Actor::updateGravity(Map *map)
         float newy=y+vy;
         int i;
         for( i=0; i<8; i++) {
-                if( !map->collide(x, newy, 32, 32 ) ) break; // a safe place to move the item to.
+                int item=map->collide(x, newy+32, 32, 32 );
+                if( item==MAP_SKY ) break; // a safe place to move the item to.
+                if( item!=MAP_BARRIER_A && item!=MAP_BARRIER_B) {
+                    item=map->collect(x,newy+32, 32, 32);
+                    collectedItem(item);
+                    break;
+                }
                 // we don't want to be inside the object, so guess we can move half the distance.
                 vy/=2.0f;
                 newy=y+vy;
@@ -104,10 +113,47 @@ void Actor::handle(bool down)
     jump=down;
 }
 
+void Actor::collectedItem(int item)
+{
+    if(item==MAP_BLUESTAR) {
+        Sound::playSfx(SFX_MATCH);
+        score+=1;
+    } else if(item==MAP_REDSTAR) {
+        Sound::playSfx(SFX_MATCH);
+        score+=2;
+    } else if(item==MAP_WHITESTART) {
+        Sound::playSfx(SFX_MATCH);
+        score+=3;
+    } else if(item==MAP_SIGN) {
+        Sound::playSfx(SFX_SIGN);
+    } else if(item==MAP_POTATO) {
+        Sound::playSfx(SFX_POTATO);
+    } else if(item==MAP_MONEY) {
+        Sound::playSfx(SFX_MONEY);
+    } else if(item==MAP_MEATLOAF) {
+        Sound::playSfx(SFX_MEATLOAF);
+//    } else if(item==MAP_BABY) {
+//        Sound::playSfx(SFX_BABY);
+    }
+}
+
 void Actor::draw(SDL_Renderer *renderer)
 {
     if(sprite) {
         sprite->draw(renderer,x,y,frame);
     }
-    if (jump==true){Font::draw(renderer, FF_BODY,"Currently Jumping",0,350);}
+    if (jump==true){
+        Font::draw(renderer, FF_BODY,"Currently Jumping",0,350);
+    }
+
+}
+
+int Actor::getScore()
+{
+    return score;
+}
+
+void Actor::resetScore()
+{
+    score=0;
 }
