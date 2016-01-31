@@ -60,7 +60,6 @@ void Game::handleKey(int key,bool down)
         mode=MODE_PLAY;
     } else {
         hero->handle(down);
-        if(down) Sound::playSfx(SFX_JUMP);
     }
 }
 
@@ -104,7 +103,9 @@ void Game::draw(SDL_Renderer *renderer)
 /// update the game state, time in 1/1000ths of a second.
 void Game::update(int elapsed)
 {
-    map->update(elapsed);
-    hero->update(elapsed);
-    hud->update(elapsed);
+    if(mode==MODE_PLAY) {
+        map->update(elapsed);
+        hero->update(elapsed,map);
+        hud->update(elapsed);
+    }
 }

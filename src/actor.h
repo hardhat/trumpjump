@@ -12,6 +12,13 @@ enum PowerUp {
 	PU_VOTE,
 };
 
+class Map;
+
+#define GRAVITY (9.8f/30.0f)
+#define MAXVEL 15.0f
+#define MINVEL -9.0f
+#define JUMP (-GRAVITY*2)
+
 class Actor
 {
 public:
@@ -20,9 +27,10 @@ public:
 	void init();
 	void handle(bool down);
 	void draw(SDL_Renderer *renderer);
-	void update(int elapsed);
+	void update(int elapsed,Map *map);
+	void updateGravity(Map *map);
 private:
-	int x,y;
+	float x,y;
 	Image *sprite;
 	/// active powerup
 	int powerup;
