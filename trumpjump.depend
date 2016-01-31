@@ -1,8 +1,11 @@
 # depslib dependency file v1.0
-1454201265 source:/home/dalew/cc/trumpjump/src/actor.cpp
+1454267329 source:/home/dalew/cc/trumpjump/src/actor.cpp
 	<SDL.h>
 	"world.h"
 	"actor.h"
+	"map.h"
+	"font.h"
+	"sound.h"
 
 1400119779 /usr/include/SDL2/SDL.h
 	"SDL_main.h"
@@ -319,7 +322,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1454201362 /home/dalew/cc/trumpjump/src/actor.h
+1454266048 /home/dalew/cc/trumpjump/src/actor.h
 	<SDL.h>
 	"image.h"
 
@@ -340,7 +343,7 @@
 1454129805 /home/dalew/cc/trumpjump/src/font.h
 	<SDL.h>
 
-1454201265 source:/home/dalew/cc/trumpjump/src/game.cpp
+1454266909 source:/home/dalew/cc/trumpjump/src/game.cpp
 	<SDL.h>
 	"game.h"
 	"actor.h"
@@ -376,7 +379,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1454202502 source:/home/dalew/cc/trumpjump/src/main.cpp
+1454267127 source:/home/dalew/cc/trumpjump/src/main.cpp
 	<SDL.h>
 	<stdio.h>
 	<stdlib.h>
@@ -409,16 +412,18 @@
 	"begin_code.h"
 	"close_code.h"
 
-1454201265 source:/home/dalew/cc/trumpjump/src/map.cpp
+1454265032 source:/home/dalew/cc/trumpjump/src/map.cpp
 	<SDL.h>
 	<stdio.h>
+	<cstdlib>
+	<cmath>
 	"map.h"
 	"image.h"
 	"world.h"
 	<iostream>
 	<vector>
 
-1454201265 /home/dalew/cc/trumpjump/src/map.h
+1454265032 /home/dalew/cc/trumpjump/src/map.h
 	<SDL.h>
 	<vector>
 	"image.h"
