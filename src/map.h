@@ -6,21 +6,31 @@
 #include "image.h"
 
 enum MapItem {
-    MAP_SKY = 0,
-    MAP_BARRIER,
-    MAP_REDSTAR,
-    MAP_BLUESTAR,
-    MAP_WHITESTART,
-    MAP_POTATO,
-    MAP_MEATLOAF,
-    MAP_SIGN,
-    MAP_MONEY,
+    MAP_SKY = 0,   // 0
+    MAP_BARRIER_A, // 1 
+    MAP_BARRIER_B, // 2 
+    MAP_REDSTAR,   // 3
+    MAP_BLUESTAR,  // 4
+    MAP_WHITESTART,// 5
+    MAP_POTATO,    // 6
+    MAP_MEATLOAF,  // 7
+    MAP_SIGN,      // 8
+    MAP_MONEY,     // 9
 };
+
+#define ITEM_KIND 10
+typedef struct ColCount {
+    int count[ITEM_KIND];
+    int non_sky;
+} ColCount;
+
 
 struct GameObject {
     MapItem Type;
     float   x;
     float   y;
+    int     row;
+    int     col;
     GameObject(MapItem t, float x, float y) : Type(t), x(x), y(y) {}
 };
 
@@ -46,27 +56,36 @@ class Map
         // Load assets
         void loadImages();
 
-        // Generate map
-        void generateObjects();
+        void gridToScreen(int gridX, int gridY, int &screenX, int &screenY);
 
-        // NOTE: draw in a buffer? as in to prepare?
-        //  May not be necessary; draw() will only have to draw the current area.
-        // void drawBlock();
-        int w;
-        int h;
-        // TODO Create a World object that implements bijection of w/h<->worldW/h
-        // TODO Accept with global object
-        int worldW;
-        int worldH;
-        MapItem **map;
+        // Generate map at Init.
+        void CreateMap();
 
-        std::vector<GameObject> objects;
+        // Create a column, based on previous column
+        void createColumn(int col);
 
-        int left;	// in screen pixels, for the map scrollng
-        // TODO Use this signiture for sprite map, not individual instances
-        // Image *itemsImage;
+        // Clean a Column.
+        void cleanColumn(int col);
 
-        // Maybe use a lookup table that matches with enum value?
+
+        // Scan a column and count the number of each MapItem cells
+        void scanColumn(int col, ColCount &count);
+
+        //
+        void shiftColumn();
+
+        // # of Cells in a Row, and a Column.
+        int cRow, cCol;
+
+        // the Grid of MapItem. Access by [X][Y] coordinate
+        MapItem **mapGrid;
+
+        // Offset from the start.
+        float left;
+        int leftCol;
+        int rightCol;
+
+        // Item images
         Image *potatoImage;
         Image *meatImage;
         Image *babyImage;
@@ -74,6 +93,11 @@ class Map
 
         // Platform image; leave as separate as a filler
         Image *platformImage;
+
+
+        // Debug methods
+        void printMap();
+        void printCount(ColCount &c);
 };
 
 #endif
