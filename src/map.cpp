@@ -18,8 +18,9 @@ int reminder(int dividend, int divisor);
 static float sineTable[] = { 0.01745f, 0.05234f, 0.08716f, 0.12187f, 0.15643f, 0.19081f, 0.22495f, 0.25882f, 0.29237f, 0.32557f, 0.35837f, 0.39073f, 0.42262f, 0.45399f, 0.48481f, 0.51504f, 0.54464f, 0.57358f, 0.60182f, 0.62932f, 0.65606f, 0.68200f, 0.70711f, 0.73135f, 0.75471f, 0.77715f, 0.79864f, 0.81915f, 0.83867f, 0.85717f, 0.87462f, 0.89101f, 0.90631f, 0.92050f, 0.92718f, 0.93358f, 0.93969f, 0.94552f, 0.95106f, 0.95630f, 0.96126f, 0.96593f, 0.97030f, 0.97437f, 0.97815f, 0.98163f, 0.98481f, 0.98769f, 0.99027f, 0.99255f, 0.99452f, 0.99619f, 0.99756f, 0.99863f, 0.99939f, 0.99985f, 0.00000f };
 
 #define CELL_LENGTH 16
-#define COL_TILE_DESIRED 4
-#define COL_BARRIER_MIN 2
+#define COL_TILE_DESIRED 1
+#define COL_STAR_DESIRED 2
+#define COL_BARRIER_MIN 1
 #define TRUMP_SPEED 0.7f
 #define SINE_SIZE 20
 Map::Map()
@@ -85,7 +86,7 @@ void Map::init()
     rightCol = (World::getWidth() / CELL_LENGTH) - 1; // Could be stretched
     colSpan = rightCol - leftCol;
     CreateMap();
-    printMap();
+    // printMap();
 
     // Trump moves at default speed
     spd = TRUMP_SPEED;
@@ -120,6 +121,9 @@ void Map::createColumn(int col) {
 
     // Do the Platforms(MAP_BARRIER) first
     for (int row = 1; row < cRow; row++) {
+            }
+
+    for (int row = 1; row < cRow; row++) {
         if (mapGrid[prevColumn][row] == MAP_SKY) {
             if (roll(10, 1) && platformCount < COL_BARRIER_MIN) {
                 mapGrid[currColumn][row] = MAP_BARRIER_A;
@@ -127,7 +131,6 @@ void Map::createColumn(int col) {
                 printf("%d\n", platformCount);
             }
         }
-        // If BARRIER_A, continue the block.
         if (mapGrid[prevColumn][row] == MAP_BARRIER_A) {
             mapGrid[currColumn][row] = MAP_BARRIER_B;
         }
@@ -135,11 +138,10 @@ void Map::createColumn(int col) {
             mapGrid[currColumn][row] = MAP_BARRIER_A;
             tileCount++;
         }
-    }
 
-    for (int row = 1; row < cRow; row++) {
+
         if (mapGrid[prevColumn][row] != MAP_SKY) {
-            
+
             // TODO set this Roll to be configurable
             if (roll(7, 3)) {
                 if (mapGrid[prevColumn][row] == MAP_BARRIER_B) {
@@ -151,7 +153,7 @@ void Map::createColumn(int col) {
                         mapGrid[currColumn][row] = mapGrid[prevColumn][row];
                     }
                 }
-                tileCount++;
+                // tileCount++;
             }
         }
     }
@@ -175,6 +177,30 @@ void Map::createColumn(int col) {
             }
         }
     }
+
+
+    scanColumn(currColumn, scanInfo);
+    int totalStars = scanInfo.count[3] + scanInfo.count[4] + scanInfo.count[5]; 
+    // Same thing with Stars
+    for( ;totalStars < COL_STAR_DESIRED; totalStars++) {
+        MapItem *newTile;
+        int nRow = rand() % cRow;
+
+        // TODO set this Roll to be configurable
+        if (roll(7, 5)) {
+            newTile = &mapGrid[currColumn][nRow];
+
+            if (*newTile == MAP_SKY) {
+                *newTile = MapItem(rand() % 3 + 2);
+
+                // Not gonna bother with retroactive barriering.
+                if (*newTile == MAP_BARRIER_B) {
+                    *newTile = MAP_SKY;
+                }
+            }
+        }
+    }
+
 }
 
 void Map::scanColumn(int col, ColCount &result) {
