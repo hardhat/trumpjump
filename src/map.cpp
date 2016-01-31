@@ -175,10 +175,6 @@ void Map::gridToScreen(int gridX, int gridY, int &screenX, int &screenY) {
     // Shift vertically(TOP should be coming from Jump mechanism)
     adjustedY = nominalY * 1.0f;
 
-    if (gridX == 1 && gridY == 1) {
-        printf("%f, %f\n", adjustedX, adjustedY);
-    }
-
     World::worldToScreen(adjustedX, adjustedY, screenX, screenY);
 }
 
@@ -189,9 +185,6 @@ void Map::screenToGrid(int &gridX, int &gridY, int screenX, int screenY) {
     // Translate screen coordinates to world coordinate.
     World::screenToWorld(screenX, screenY, worldX, worldY);
 
-    // printf("%f, %f, %d, %d\n", worldX, worldY, screenX, screenY);
-    // World::getWidth() / CELL_LENGTH;
-    
     targetX = worldX;
     targetY = worldY;
 
@@ -271,7 +264,6 @@ void Map::update(int elapsed) {
 
     // data structure - this is a case where a linked list(vector?) would work
 
-    // TODO 1. shift horizontally
     // TODO 2. determine if still in display
     // TODO 3. dispose
 }
