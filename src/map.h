@@ -82,10 +82,15 @@ class Map
         // the Grid of MapItem. Access by [X][Y] coordinate
         MapItem **mapGrid;
 
-        // Offset from the start.
+        // Offset from the (0, 0) - Y is not counted yet
         float left;
+
+        // Leftmost Column of the Grid we're showing.
         int leftCol;
+        // Rightmost Column of the Grid we're showing.
         int rightCol;
+        // How many Columns does the viewport fit?
+        int colSpan;
 
         // Item images
         Image *potatoImage;

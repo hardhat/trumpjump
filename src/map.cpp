@@ -10,6 +10,8 @@
 
 // returns chance of <eye> over <die> roll
 bool roll(int die, int eye);
+// a % b with a < 0 is implementation-dependant; a helper to yield euculedean modulo
+int reminder(int dividend, int divisor);
 
 #define CELL_LENGTH 16
 #define COL_TILE_DESIRED 7
@@ -42,8 +44,10 @@ void Map::init()
     // Load assets
     loadImages();
 
-    cCol = std::ceil(World::getWidth() / CELL_LENGTH);
-    cRow = std::ceil(World::getHeight() / CELL_LENGTH);
+    // Slightly larger than the viewport so we have a leeway.
+    cCol = std::ceil(World::getWidth() / CELL_LENGTH) * 1.3;
+    // Should be taller than the viewport so you can "fall"
+    cRow = std::ceil(World::getHeight() / CELL_LENGTH) * 1.3;
 
     // Initialize mapGrid, a representation of Grid
     mapGrid = new MapItem*[cCol];
@@ -57,8 +61,10 @@ void Map::init()
     }
 
     leftCol = 0;
+    rightCol = (World::getWidth() / CELL_LENGTH) - 1; // Could be stretched
+    colSpan = rightCol - leftCol;
     CreateMap();
-    printMap();
+    // printMap();
 }
 
 void Map::CreateMap() {
@@ -67,15 +73,16 @@ void Map::CreateMap() {
     }
 }
 
+
 void Map::createColumn(int col) {
     // Counting struct
     ColCount scanInfo;
     // Column to be examined.
-    int prevColumn = (col - 1) % cCol;
+    int prevColumn = reminder(col-1, cCol);
     // Column to be written, in case we start a Barrier this time.
-    int nextColumn = (col + 1) % cCol;
+    int nextColumn = reminder(col+1, cCol);
     // Current Column to be created.
-    int currColumn = col % cCol;
+    int currColumn = reminder(col, cCol);
 
     // Currently created Tile
     int tileCount = 0;
@@ -84,8 +91,6 @@ void Map::createColumn(int col) {
     cleanColumn(col);
 
     scanColumn(prevColumn, scanInfo);
-
-    printCount(scanInfo);
 
     for (int row = 0; row < cRow; row++) {
         if (mapGrid[prevColumn][row] != MAP_SKY) {
@@ -164,13 +169,35 @@ void Map::newGame()
 void Map::gridToScreen(int gridX, int gridY, int &screenX, int &screenY) {
     // Nominal - "original" location of the grid; i.e., without any offset.
     float nominalX, nominalY;
+    float circularX;
     // Adjusted - location of the draw after the alignment to current location.
     float adjustedX, adjustedY;
     nominalX = gridX * 16.0f;
     nominalY = gridY * 16.0f;
 
-    // Shift horizontally
-    adjustedX = (nominalX - left) * 1.0f;
+    circularX = nominalX + cCol * 16.0f;
+
+    // Shift by leftmost Col(This part will need to be nomralized later)
+    // i.e., no transforming occurs.
+    if (leftCol < rightCol) {
+    // if (leftCol < gridX) {
+        adjustedX = nominalX - (leftCol * 16.0f);
+    }
+    // i.e., we're appending some left portion onto right
+    else {
+        // i.e., we're trying to render a Col that is outside of viewport
+        //  So it must be transformed onto next circular position
+        if (gridX < leftCol) {
+            adjustedX = circularX - (leftCol * 16.0f);
+        }
+        // i.e., this Column is still using normal measurement
+        else {
+            adjustedX = nominalX - (leftCol * 16.0f);
+        }
+    }
+
+    // Shift by remaining left float
+    adjustedX = (adjustedX - left) * 1.0f;
 
     // Shift vertically(TOP should be coming from Jump mechanism)
     adjustedY = nominalY * 1.0f;
@@ -178,6 +205,9 @@ void Map::gridToScreen(int gridX, int gridY, int &screenX, int &screenY) {
     World::worldToScreen(adjustedX, adjustedY, screenX, screenY);
 }
 
+// TODO 1. Update Leftmost Col
+// TODO 2. Update Rightmost Col
+// TODO 3. Every time left > TILE_SIZE, shift once.
 void Map::screenToGrid(int &gridX, int &gridY, int screenX, int screenY) {
     float worldX, worldY;
     float targetX, targetY;
@@ -189,10 +219,11 @@ void Map::screenToGrid(int &gridX, int &gridY, int screenX, int screenY) {
     targetY = worldY;
 
     // printf("%f, %f, %d, %d\n", targetX, targetY, gridX, gridY);
-    targetX = (targetX +left) / CELL_LENGTH;
+    targetX = (targetX + left) / CELL_LENGTH;
     targetY = targetY / CELL_LENGTH;
     
-    gridX = (int) std::floor(targetX);
+    gridX = (int) std::floor(targetX) + leftCol;
+    gridX = reminder(gridX, cCol);
     gridY = (int) std::floor(targetY);
 
     // printf("%f, %f, %d, %d\n", targetX, targetY, gridX, gridY);
@@ -205,6 +236,7 @@ void Map::draw(SDL_Renderer *renderer)
     Image *toDraw;
     int screenX, screenY;
 
+    // TODO from leftCol to rightCol
     for (int x = 0; x < cCol; x++) {
         for (int y = 0; y < cRow; y++) {
             switch (mapGrid[x][y]) {
@@ -247,18 +279,27 @@ void Map::draw(SDL_Renderer *renderer)
     }
 }
 
+
+// TODO Map - incorporate 'elapsed' on update
 void Map::update(int elapsed) { 
     // 1. Shift horizontally.
     left += TRUMP_SPEED;
 
-    // TODO 2. determine if still in display
-    // TODO 3. dispose
+    if (left > CELL_LENGTH) {
+        // Column to be written, in case we start a Barrier this time.
+        leftCol = reminder(leftCol+1, cCol);
+        // printf("left: %f, leftCol: %d, rightCol: %d, colSpan: %d, cCol: %d\n", left, leftCol, rightCol, colSpan , cCol);
+        rightCol = reminder(rightCol+1, cCol);
+
+        createColumn(rightCol);
+        left = left - CELL_LENGTH;
+    }
 }
 
 void Map::testCollide(int x, int y) {
     for (int i = 0; i < 18; i++) {
         for (int j = 0; j < 18; j++) {
-            // printf("Collide: %d, %d: %d\n", i, j, collide(i, j, 0, 0));
+            printf("Collide: %d, %d: %d\n", i, j, collide(i, j, 0, 0));
         }
     }
 }
@@ -310,3 +351,10 @@ bool roll(int die, int eye) {
 }
 
 
+int reminder(int dividend, int divisor) {
+    int mod = dividend % divisor;
+    if (mod < 0) {
+        return (mod + divisor) % divisor;
+    }
+    return mod;
+}
