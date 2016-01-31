@@ -32,6 +32,7 @@ public:
 	void collectedItem(int item);
 	int getScore();
 	void resetScore();
+	float getY() { return y; }
 private:
 	float x,y;
 	Image *sprite;

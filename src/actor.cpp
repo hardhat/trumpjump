@@ -8,6 +8,7 @@
 
 Actor::Actor()
 {
+    sprite=NULL;
     x=128;
     y=160;
     jump=false;
@@ -32,11 +33,24 @@ Actor::~Actor()
 void Actor::init()
 
 {
-    sprite=new Image(World::getRenderer(),"Trump.png");
-
-    sprite->setCellSize(32);
-
+    if(!sprite) {
+        sprite=new Image(World::getRenderer(),"Trump.png");
+        sprite->setCellSize(32);
+    }
+    x=128;
+    y=160;
+    jump=false;
+    // Animation state
+    frame=0;
+    frameTimer=150;
+    // Power up
+    powerup=0;
+    timer=0;
+    // physics
+    ay=0;
+    vy=0;
     score=0;
+    physicsTimer=0;
 }
 
 void Actor::update(int elapsed, Map *map)
@@ -87,9 +101,11 @@ void Actor::updateGravity(Map *map)
         int i;
         for( i=0; i<8; i++) {
                 int item=map->collide(x, newy+32, 32, 32 );
+                int item2=map->collide(x+16, newy, 32, 32 );
                 if( item==MAP_SKY ) break; // a safe place to move the item to.
-                if( item!=MAP_BARRIER_A && item!=MAP_BARRIER_B) {
+                if( (item!=MAP_BARRIER_A && item!=MAP_BARRIER_B) && (item2!=MAP_BARRIER_A && item2!=MAP_BARRIER_B)) {
                     item=map->collect(x,newy+32, 32, 32);
+                    item2=map->collect(x+16,newy, 32, 32);
                     collectedItem(item);
                     break;
                 }

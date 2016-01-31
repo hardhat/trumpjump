@@ -39,6 +39,7 @@ private:
 
 	int score;
 	int highScore;
+    int loseTimer;
 
     Map *map;
     Hud *hud;
