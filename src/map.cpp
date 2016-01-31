@@ -19,6 +19,7 @@ static float sineTable[] = { 0.01745f, 0.05234f, 0.08716f, 0.12187f, 0.15643f, 0
 
 #define CELL_LENGTH 16
 #define COL_TILE_DESIRED 4
+#define COL_BARRIER_MIN 2
 #define TRUMP_SPEED 0.7f
 #define SINE_SIZE 20
 Map::Map()
@@ -110,30 +111,37 @@ void Map::createColumn(int col) {
 
     // Currently created Tile
     int tileCount = 0;
+    int platformCount = 0;
 
     // Clean up first.
     cleanColumn(col);
 
     scanColumn(prevColumn, scanInfo);
 
+    // Do the Platforms(MAP_BARRIER) first
     for (int row = 1; row < cRow; row++) {
+        if (mapGrid[prevColumn][row] == MAP_SKY) {
+            if (roll(10, 1) && platformCount < COL_BARRIER_MIN) {
+                mapGrid[currColumn][row] = MAP_BARRIER_A;
+                platformCount++;
+                printf("%d\n", platformCount);
+            }
+        }
+        // If BARRIER_A, continue the block.
+        if (mapGrid[prevColumn][row] == MAP_BARRIER_A) {
+            mapGrid[currColumn][row] = MAP_BARRIER_B;
+        }
+        if (mapGrid[currColumn][row] == MAP_BARRIER_A && roll(6, 5)) {
+            mapGrid[currColumn][row] = MAP_BARRIER_A;
+            tileCount++;
+        }
     }
 
     for (int row = 1; row < cRow; row++) {
         if (mapGrid[prevColumn][row] != MAP_SKY) {
-
-            // If BARRIER_A, continue the block.
-            if (mapGrid[prevColumn][row] == MAP_BARRIER_A) {
-                mapGrid[currColumn][row] = MAP_BARRIER_B;
-            }
-
-            else if (mapGrid[currColumn][row] == MAP_BARRIER_A && roll(6, 5)) {
-                mapGrid[currColumn][row] = MAP_BARRIER_A;
-                tileCount++;
-            }
-
+            
             // TODO set this Roll to be configurable
-            else if (roll(7, 3)) {
+            if (roll(7, 3)) {
                 if (mapGrid[prevColumn][row] == MAP_BARRIER_B) {
                     mapGrid[currColumn][row] = MAP_BARRIER_A;
                 }
