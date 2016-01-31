@@ -71,6 +71,8 @@ void Game::handleButton(int x,int y,bool down)
         mode=MODE_PLAY;
     } else {
         hero->handle(down);
+        map->collide(x, y, 0, 0);
+        map->collect(x, y, 0, 0);
         if(down) Sound::playSfx(SFX_JUMP);
     }
 }

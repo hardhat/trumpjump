@@ -169,8 +169,10 @@ void Map::gridToScreen(int gridX, int gridY, int &screenX, int &screenY) {
     nominalX = gridX * 16.0f;
     nominalY = gridY * 16.0f;
 
-    // For now;
+    // Shift horizontally
     adjustedX = (nominalX - left) * 1.0f;
+
+    // Shift vertically(TOP should be coming from Jump mechanism)
     adjustedY = nominalY * 1.0f;
 
     if (gridX == 1 && gridY == 1) {
@@ -179,6 +181,31 @@ void Map::gridToScreen(int gridX, int gridY, int &screenX, int &screenY) {
 
     World::worldToScreen(adjustedX, adjustedY, screenX, screenY);
 }
+
+void Map::screenToGrid(int &gridX, int &gridY, int screenX, int screenY) {
+    float worldX, worldY;
+    float targetX, targetY;
+
+    // Translate screen coordinates to world coordinate.
+    World::screenToWorld(screenX, screenY, worldX, worldY);
+
+    // printf("%f, %f, %d, %d\n", worldX, worldY, screenX, screenY);
+    // World::getWidth() / CELL_LENGTH;
+    
+    targetX = worldX;
+    targetY = worldY;
+
+    // printf("%f, %f, %d, %d\n", targetX, targetY, gridX, gridY);
+    targetX = targetX / CELL_LENGTH;
+    targetY = targetY / CELL_LENGTH;
+    
+    gridX = (int) std::floor(targetX);
+    gridY = (int) std::floor(targetY);
+
+    // printf("%f, %f, %d, %d\n", targetX, targetY, gridX, gridY);
+
+}
+
 
 void Map::draw(SDL_Renderer *renderer)
 {
@@ -227,9 +254,19 @@ void Map::draw(SDL_Renderer *renderer)
     }
 }
 
+bool tried = false;
 void Map::update(int elapsed) { 
+    if (tried) return;
+    // printf("COLLIDE: %d, %d: %d\n", 0, 0, collide(0, 0, 0, 0));
+    for (int i = 0; i < 18; i++) {
+        for (int j = 0; j < 18; j++) {
+            // collide(i, j, 0, 0);
+            // printf("Collide: %d, %d: %d\n", i, j, collide(i, j, 0, 0));
+        }
+    }
+    tried = true;
     // 1. Shift horizontally.
-    left += TRUMP_SPEED;
+    // left += TRUMP_SPEED;
 
 
     // data structure - this is a case where a linked list(vector?) would work
@@ -241,14 +278,24 @@ void Map::update(int elapsed) {
 
 int Map::collide(int x,int y,int w,int h)
 {
-    return MAP_SKY;
+    int gridX, gridY;
+    screenToGrid(gridX, gridY, x, y);
+
+    printf("collide; :[%d, %d] %d, %d = %d\n", gridX, gridY, x, y, mapGrid[gridX][gridY]);
+    return mapGrid[gridX][gridY];
 }
 
 int Map::collect(int x,int y,int w,int h)
 {
+    int gridX, gridY;
+    screenToGrid(gridX, gridY, x, y);
 
-    return 0;
+    MapItem item = mapGrid[gridX][gridY];
+    mapGrid[gridX][gridY] = MAP_SKY;
+
+    return (int) item;
 }
+
 // Console Print
 void Map::printMap() {
     printf("cCol: %d, cRow: %d\n", cCol, cRow);

@@ -56,7 +56,9 @@ class Map
         // Load assets
         void loadImages();
 
+        // Converter function from Grid coordinates and screen coordinates, back and forth.
         void gridToScreen(int gridX, int gridY, int &screenX, int &screenY);
+        void screenToGrid(int &gridX, int &gridY, int screenX, int screenY);
 
         // Generate map at Init.
         void CreateMap();
