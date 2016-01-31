@@ -1,5 +1,5 @@
 #include <SDL.h>
-
+#include <stdio.h>
 #include "image.h"
 #include "font.h"
 #include "hud.h"
