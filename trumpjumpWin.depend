@@ -319,7 +319,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1454169635 c:\users\joshua\documents\github\trumpjump\src\actor.h
+1454199945 c:\users\joshua\documents\github\trumpjump\src\actor.h
 	<SDL.h>
 	"image.h"
 
@@ -340,10 +340,11 @@
 1454169635 c:\users\joshua\documents\github\trumpjump\src\font.h
 	<SDL.h>
 
-1454188941 source:c:\users\joshua\documents\github\trumpjump\src\game.cpp
+1454193387 source:c:\users\joshua\documents\github\trumpjump\src\game.cpp
 	<SDL.h>
 	"game.h"
 	"actor.h"
+	"world.h"
 	"map.h"
 	"hud.h"
 	"sound.h"
@@ -353,8 +354,9 @@
 	<SDL.h>
 	"image.h"
 
-1454179746 c:\users\joshua\documents\github\trumpjump\src\map.h
+1454193387 c:\users\joshua\documents\github\trumpjump\src\map.h
 	<SDL.h>
+	<vector>
 	"image.h"
 
 1454169635 c:\users\joshua\documents\github\trumpjump\src\hud.h
@@ -381,7 +383,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1454188941 source:c:\users\joshua\documents\github\trumpjump\src\main.cpp
+1454193387 source:c:\users\joshua\documents\github\trumpjump\src\main.cpp
 	<SDL.h>
 	<stdio.h>
 	<stdlib.h>
@@ -396,12 +398,14 @@
 1454169635 c:\users\joshua\documents\github\trumpjump\src\main.h
 	<SDL.h>
 
-1454179922 source:c:\users\joshua\documents\github\trumpjump\src\map.cpp
+1454193387 source:c:\users\joshua\documents\github\trumpjump\src\map.cpp
 	<SDL.h>
 	<stdio.h>
 	"map.h"
 	"image.h"
 	"world.h"
+	<iostream>
+	<vector>
 
 1454188941 source:c:\users\joshua\documents\github\trumpjump\src\sound.cpp
 	<SDL.h>

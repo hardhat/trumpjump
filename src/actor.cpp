@@ -24,7 +24,6 @@ void Actor::init()
 
 void Actor::update(int elapsed)
 {
-
 }
 
 void Actor::handle(bool down)

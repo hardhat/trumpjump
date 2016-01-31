@@ -9,6 +9,7 @@ enum PowerUp {
 	PU_BABY,
 	PU_POTATO,
 	PU_MEATLOAF,
+	PU_VOTE,
 };
 
 class Actor
@@ -27,6 +28,11 @@ private:
 	int powerup;
 	/// time to live for current powerup, or 0 for infinte in ms.
 	int timer;
+	/// Sprite Animation frame (Four Total)
+	int frame;
+	/// Timer for Animation
+	int frameTimer;
+	/// True if tapped on screen/jump buttton pressed.
+	bool jump;
 };
-
 #endif
