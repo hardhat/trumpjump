@@ -34,5 +34,9 @@ private:
 	int frameTimer;
 	/// True if tapped on screen/jump buttton pressed.
 	bool jump;
+	/// the vertical acceleration
+	float ay;
+	/// the vertical speed
+	float vy;
 };
 #endif

@@ -1,6 +1,7 @@
 # depslib dependency file v1.0
-1454089251 source:/home/dalew/cc/trumpjump/src/actor.cpp
+1454188813 source:/home/dalew/cc/trumpjump/src/actor.cpp
 	<SDL.h>
+	"world.h"
 	"actor.h"
 
 1400119779 /usr/include/SDL2/SDL.h
@@ -339,10 +340,11 @@
 1454129805 /home/dalew/cc/trumpjump/src/font.h
 	<SDL.h>
 
-1454188364 source:/home/dalew/cc/trumpjump/src/game.cpp
+1454189785 source:/home/dalew/cc/trumpjump/src/game.cpp
 	<SDL.h>
 	"game.h"
 	"actor.h"
+	"world.h"
 	"map.h"
 	"hud.h"
 	"sound.h"
@@ -374,7 +376,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1454188436 source:/home/dalew/cc/trumpjump/src/main.cpp
+1454189341 source:/home/dalew/cc/trumpjump/src/main.cpp
 	<SDL.h>
 	<stdio.h>
 	<stdlib.h>
@@ -407,14 +409,15 @@
 	"begin_code.h"
 	"close_code.h"
 
-1454188364 source:/home/dalew/cc/trumpjump/src/map.cpp
+1454189341 source:/home/dalew/cc/trumpjump/src/map.cpp
 	<SDL.h>
 	<stdio.h>
 	"map.h"
 	"image.h"
 	"world.h"
+	<iostream>
 
-1454178970 /home/dalew/cc/trumpjump/src/map.h
+1454189341 /home/dalew/cc/trumpjump/src/map.h
 	<SDL.h>
 	"image.h"
 

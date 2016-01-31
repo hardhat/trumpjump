@@ -59,6 +59,7 @@ void Game::handleKey(int key,bool down)
     if(mode==MODE_MENU) {
         mode=MODE_PLAY;
     } else {
+        hero->handle(down);
         if(down) Sound::playSfx(SFX_JUMP);
     }
 }
@@ -69,6 +70,7 @@ void Game::handleButton(int x,int y,bool down)
     if(mode==MODE_MENU) {
         mode=MODE_PLAY;
     } else {
+        hero->handle(down);
         if(down) Sound::playSfx(SFX_JUMP);
     }
 }
