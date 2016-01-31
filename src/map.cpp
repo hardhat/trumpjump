@@ -366,18 +366,7 @@ void Map::draw(SDL_Renderer *renderer)
 }
 
 int Map::handle(int key, bool down) {
-    // Stop.
-    if (key == '3') {
-        spd = 0;
-    }
-    // Move
-    else if (key == '4') {
-        spd = TRUMP_SPEED;
-    }
-
-    // Move Up. (This functionality will be exported as a public function after this development)
-    if (key == '1') {
-    }
+    return 0;
 }
 
 
