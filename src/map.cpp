@@ -111,13 +111,15 @@ void Map::createColumn(int col) {
     // If this column has not enough tiles, give it another shot.
     for( ;tileCount < COL_TILE_DESIRED; tileCount++) {
         MapItem *newTile;
+        int nRow = rand() % cRow;
 
         // TODO set this Roll to be configurable
         if (roll(7, 5)) {
-            newTile = &mapGrid[currColumn][rand() % cRow];
+            newTile = &mapGrid[currColumn][nRow];
+
             if (*newTile == MAP_SKY) {
                 *newTile = MapItem(rand() % ITEM_KIND);
-
+                
                 // Not gonna bother with retroactive barriering.
                 if (*newTile == MAP_BARRIER_B) {
                     *newTile = MAP_SKY;
