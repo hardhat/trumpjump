@@ -1,9 +1,12 @@
 # depslib dependency file v1.0
-1454266654 source:c:\users\joshua\documents\github\trumpjump\src\actor.cpp
+1454275909 source:c:\users\joshua\documents\github\trumpjump\src\actor.cpp
 	<SDL.h>
+	<stdio.h>
 	"world.h"
 	"actor.h"
+	"map.h"
 	"font.h"
+	"sound.h"
 
 1394253593 c:\users\joshua\desktop\sdl2-2.0.4\include\sdl.h
 	"SDL_main.h"
@@ -355,7 +358,7 @@
 	<SDL.h>
 	"image.h"
 
-1454272244 c:\users\joshua\documents\github\trumpjump\src\map.h
+1454275909 c:\users\joshua\documents\github\trumpjump\src\map.h
 	<SDL.h>
 	<vector>
 	"image.h"
@@ -385,7 +388,7 @@
 	"begin_code.h"
 	"close_code.h"
 
-1454270545 source:c:\users\joshua\documents\github\trumpjump\src\main.cpp
+1454275909 source:c:\users\joshua\documents\github\trumpjump\src\main.cpp
 	<SDL.h>
 	<stdio.h>
 	<stdlib.h>
@@ -400,7 +403,7 @@
 1454169635 c:\users\joshua\documents\github\trumpjump\src\main.h
 	<SDL.h>
 
-1454226712 source:c:\users\joshua\documents\github\trumpjump\src\map.cpp
+1454275909 source:c:\users\joshua\documents\github\trumpjump\src\map.cpp
 	<SDL.h>
 	<stdio.h>
 	<cstdlib>
@@ -411,7 +414,7 @@
 	<iostream>
 	<vector>
 
-1454188941 source:c:\users\joshua\documents\github\trumpjump\src\sound.cpp
+1454273267 source:c:\users\joshua\documents\github\trumpjump\src\sound.cpp
 	<SDL.h>
 	<stdio.h>
 	<SDL_mixer.h>
