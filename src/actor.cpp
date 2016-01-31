@@ -59,7 +59,6 @@ void Actor::update(int elapsed, Map *map)
         }
     }
     // Apply the physics.
-    printf("Physics!!! %d\n",elapsed);
     physicsTimer+=elapsed;
     while(physicsTimer>16) {
         physicsTimer-=16;
@@ -112,8 +111,9 @@ void Actor::updateGravity(Map *map)
 void Actor::handle(bool down)
 {
     ay=down?JUMP:0;
-    printf("Jump ay=%.2f\n",ay);
-    if(down && !jump) Sound::playSfx(SFX_JUMP);
+    if(down && !jump) {
+        Sound::playSfx(SFX_JUMP);
+    }
 
     jump=down;
 }
@@ -137,8 +137,8 @@ void Actor::collectedItem(int item)
         Sound::playSfx(SFX_MONEY);
     } else if(item==MAP_MEATLOAF) {
         Sound::playSfx(SFX_MEATLOAF);
-//    } else if(item==MAP_BABY) {
-//        Sound::playSfx(SFX_BABY);
+    } else if(item==MAP_BABY) {
+        Sound::playSfx(SFX_BABY);
     }
 }
 
