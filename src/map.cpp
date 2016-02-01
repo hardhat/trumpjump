@@ -195,7 +195,7 @@ void Map::createColumn(int col) {
                 }
                 else {
                     // Not multiple babies
-                    if (!getGrid(prevColumn,row) == MAP_BABY) {
+                    if (!(getGrid(prevColumn,row) == MAP_BABY)) {
                         setGrid(currColumn,row,getGrid(prevColumn,row));
                     }
                 }
