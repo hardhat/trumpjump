@@ -1,6 +1,6 @@
-#include <SDL.h>
+#include "SDL.h"
 #include <stdio.h>
-#include <SDL_mixer.h>
+#include "SDL_mixer.h"
 #include <map>
 #include "sound.h"
 

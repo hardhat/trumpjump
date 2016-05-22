@@ -1,7 +1,7 @@
 #ifndef ACTOR_H
 #define ACTOR_H
 
-#include <SDL.h>
+#include "SDL.h"
 #include "image.h"
 
 enum PowerUp {

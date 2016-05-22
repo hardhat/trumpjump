@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/image.cpp"
+            timestampString = "485580822.175641"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2"
+            endingLineNumber = "2">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Image::Image(SDL_Renderer*, char const*)"
+                  moduleName = "SuperTrumpJump"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Admin/cc/SDL2-2.0.4/Xcode-iOS/distantgames/SuperTrumpJump/src/image.cpp"
+                  timestampString = "485582257.352846"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "9"
+                  endingLineNumber = "9"
+                  offsetFromSymbolStart = "40">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Image::Image(SDL_Renderer*, char const*)"
+                  moduleName = "SuperTrumpJump"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Admin/cc/SDL2-2.0.4/Xcode-iOS/distantgames/SuperTrumpJump/src/image.cpp"
+                  timestampString = "485582257.420911"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "8"
+                  endingLineNumber = "8"
+                  offsetFromSymbolStart = "14">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

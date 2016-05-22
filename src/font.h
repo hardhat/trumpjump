@@ -1,7 +1,7 @@
 #ifndef FONT_H
 #define FONT_H
 
-#include <SDL.h>
+#include "SDL.h"
 
 enum FontFace {
 	FF_BODY,

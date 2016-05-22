@@ -1,4 +1,4 @@
-#include <SDL.h>
+#include "SDL.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -48,7 +48,7 @@ int main(int argc,char **argv)
 	// Init font loader
 	Font::init();
 
-	srand(time(NULL));
+	srand((unsigned int)time(NULL));
 
 	game.init(renderer);
 
