@@ -26,10 +26,17 @@ void Sound::init()
 
 }
 
+#ifdef __APPLE__
 const char *songName[]={
-	"data/dubstep trump.ogg",
-	//"data/menu.ogg",
+    "dubstep trump.ogg",
+    //"data/menu.ogg",
 };
+#else
+const char *songName[]={
+    "data/dubstep trump.ogg",
+    //"data/menu.ogg",
+};
+#endif
 
 void Sound::playSong(int id)
 {
@@ -61,16 +68,30 @@ void Sound::playSong(int id)
 
 }
 
+#ifdef __APPLE__
 const char *sfxName[]={
-	"data/jump.wav",
-	"data/start.wav",
-	"data/match.wav",
-	"data/potato.wav",
-	"data/meatloaf.wav",
-	"data/chaching.wav",
-	"data/rich.wav",
-	"data/baby.wav",
+	"jump.wav",
+	"start.wav",
+	"match.wav",
+	"potato.wav",
+	"meatloaf.wav",
+	"chaching.wav",
+	"rich.wav",
+	"baby.wav",
 };
+#else
+const char *sfxName[]={
+    "data/jump.wav",
+    "data/start.wav",
+    "data/match.wav",
+    "data/potato.wav",
+    "data/meatloaf.wav",
+    "data/chaching.wav",
+    "data/rich.wav",
+    "data/baby.wav",
+};
+
+#endif
 
 void Sound::playSfx(int id)
 {

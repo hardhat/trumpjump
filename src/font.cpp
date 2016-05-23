@@ -24,10 +24,15 @@ void Font::init()
 	TTF_Init();
 	// Load up all of the fonts we will use.
     // TODO: scale up to the global scale.
+#ifdef __APPLE__
+    fontFace[FF_HEADLINE]=TTF_OpenFont("vera.ttf",36);
+    fontFace[FF_BODY]=TTF_OpenFont("vera.ttf",18);
+    fontFace[FF_SMALL]=TTF_OpenFont("vera.ttf",14);
+#else
     fontFace[FF_HEADLINE]=TTF_OpenFont("data/vera.ttf",36);
     fontFace[FF_BODY]=TTF_OpenFont("data/vera.ttf",18);
     fontFace[FF_SMALL]=TTF_OpenFont("data/vera.ttf",14);
-
+#endif
 }
 
 void Font::extent(int font,const char *message,int &w,int &h)
